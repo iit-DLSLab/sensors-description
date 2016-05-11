@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-	<xacro:include filename="$(find hyq_description)/urdfs/sensors/stereo_camera.gazebo.xacro"/>
+	<xacro:include filename="$(find sensors_description)/urdfs/sensors/stereo_camera.gazebo.xacro"/>
 
 	<xacro:macro name="vislab_3dve" params="name parent xyz rpy high_res hfov">
 		<joint name="${name}_vislab_3dve_mount_joint" type="fixed">
@@ -22,13 +22,13 @@
 			<visual>
 				<origin xyz="0.018 0 0" rpy="${PI/2} 0 ${-PI/2}"/>
 				<geometry>
-					<mesh filename="package://hyq_description/meshes/sensors/vislab_3dve.stl"/>
+					<mesh filename="package://sensors_description/meshes/sensors/vislab_3dve.stl"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0.018 0 0" rpy="${PI/2} 0 ${-PI/2}"/>
 				<geometry>
-					<mesh filename="package://hyq_description/meshes/sensors/vislab_3dve.stl"/>
+					<mesh filename="package://sensors_description/meshes/sensors/vislab_3dve.stl"/>
 				</geometry>
 			</collision>
 			<inertial>

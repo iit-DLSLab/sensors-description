@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 	<!-- Things that are needed only for Gazebo (not the physical robot). These include sensor and controller plugin specifications -->
-	<xacro:include filename="$(find hyq_description)/urdfs/sensors/ptu_d46.transmission.xacro"/>
+	<xacro:include filename="$(find sensors_description)/urdfs/sensors/ptu_d46.transmission.xacro"/>
     
 	<xacro:macro name="d46_stepper_module" params="ptu_name joint_name">
 		<link name="${ptu_name}_${joint_name}_link">
