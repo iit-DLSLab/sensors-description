@@ -67,12 +67,14 @@
 
   <link name="hokuyo_link">
     <inertial>
-      <origin xyz="0.012428 0.0004084 -0.0041835" rpy="0 0 0" />
-      <mass value="0.057664" />
+      <origin xyz="0.032428 0.0004084 -0.0041835" rpy="0 0 0" />
+      <mass value="0.057654" />
       <inertia iyy="4.2412E-05" ixy="4.9927E-08" iyz="-9.8165E-09" ixx="3.7174E-05" ixz="1.1015E-05" izz="4.167E-05" />
     </inertial>
     <visual>
-      <origin xyz="-.03 -.1 0" rpy="-1.9179632679 -1.57079632679 0" />
+      <!--origin xyz="0.065774 -0.001163 -0.08809" rpy="0 0 0" /-->
+      <!--origin xyz="0.045 -0.001163 -0.08809" rpy="-0.314 0 0" /-->
+      <origin xyz="0.045 -0.0261018277 -0.08342369" rpy="-0.314 0 0" />
       <geometry>
         <mesh filename="package://multisense_description/meshes/head_camera.dae" />
       </geometry>
@@ -80,6 +82,12 @@
         <color rgba="0.72941 0.35686 0.023529 1" />
       </material>
     </visual>
+  <collision>
+    <origin xyz="0.01885 0 -0.02119" rpy="0 0 0" />
+    <geometry>
+      <box size="0.08 0.06 0.04238"/>
+    </geometry>
+  </collision>
   <collision>
     <origin xyz="0.03 0 0.0235" rpy="0 0 0" />
     <geometry>
