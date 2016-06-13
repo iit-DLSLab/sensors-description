@@ -66,30 +66,19 @@ MultiSenseSL::~MultiSenseSL()
 ////////////////////////////////////////////////////////////////////////////////
 void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
 {
-  this->atlasModel = _parent;
+  this->robotModel = _parent;
   this->world = _parent->GetWorld();
   this->sdf = _sdf;
 
-  ROS_DEBUG("Loading MultiSense ROS node.");
+  ROS_DEBUG("Loading Multisense ROS node.");
 
   this->lastTime = this->world->GetSimTime();
 
   // Get imu link
-  this->imuLink = this->atlasModel->GetLink(this->imuLinkName);
+  this->imuLink = this->robotModel->GetLink(this->imuLinkName);
   if (!this->imuLink)
   {
     gzerr << this->imuLinkName << " not found\n";
-    std::vector<gazebo::physics::LinkPtr> tempLinks = this->atlasModel->GetLinks();
-    for(int i = 0; i < tempLinks.size(); i++)
-    {
-      gzerr << "Available links are: " << tempLinks[i]->GetName() << "\n";
-    }
-  }
-
-  std::vector<gazebo::physics::JointPtr> tempJoints = this->atlasModel->GetJoints();
-  for(int i = 0; i < tempJoints.size(); i++)
-  {
-    gzerr << "Available Joints are: " << tempJoints[i]->GetName() << "\n";
   }
 
   // Get sensors
@@ -100,14 +89,14 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
     gzerr << "head_imu_sensor not found\n" << "\n";
 
   // \todo: add ros topic / service to reset imu (imuReferencePose, etc.)
-  this->spindleLink = this->atlasModel->GetLink("hokuyo_link");
+  this->spindleLink = this->robotModel->GetLink("hokuyo_link");
   if (!this->spindleLink)
   {
     gzerr << "spindle link not found, plugin will stop loading\n";
     return;
   }
 
-  this->spindleJoint = this->atlasModel->GetJoint("hokuyo_joint");
+  this->spindleJoint = this->robotModel->GetJoint("hokuyo_joint");
   if (!this->spindleJoint)
   {
     gzerr << "spindle joint not found, plugin will stop loading\n";
@@ -159,24 +148,7 @@ void MultiSenseSL::LoadThread()
   // publish multi queue
   this->pmq->startServiceThread();
 
-  int atlasVersion;
-  this->rosnode_->getParam("/atlas_version", atlasVersion);
-  if (atlasVersion == 1)
-  {
-    ROS_INFO("ros param /atlas_version == 1");
-    this->rosNamespace = "/multisense_sl";
-  }
-  else if (atlasVersion >= 3)
-  {
-    ROS_INFO("ros param /atlas_version == %d", atlasVersion);
-    this->rosNamespace = "/multisense";
-  }
-  else
-  {
-    ROS_WARN(
-        "/atlas_version not specified (1, 3, 4, or 5), assuming atlas v1.");
-    this->rosNamespace = "/multisense_sl";
-  }
+  this->rosNamespace = "/multisense";
 
   // ros publications
   // publish joint states for tf (robot state publisher)

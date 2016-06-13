@@ -141,7 +141,7 @@ namespace gazebo
 
     // gazebo variables
     private: physics::WorldPtr world;
-    private: physics::ModelPtr atlasModel;
+    private: physics::ModelPtr robotModel;
     private: sdf::ElementPtr sdf;
     private: common::Time lastTime;
 
