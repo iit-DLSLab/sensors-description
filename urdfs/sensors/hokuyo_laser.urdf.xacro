@@ -2,6 +2,9 @@
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
+	<!-- dima -->
+	<xacro:include filename="$(find sensors_description)/urdfs/sensors/hokuyo_laser.gazebo.xacro" />
+
 	<xacro:macro name="hokuyo_laser" params="name parent *origin ros_topic update_rate min_angle max_angle range">
 		<joint name="${name}_joint" type="fixed">
 			<axis xyz="0 0 0" />
@@ -9,9 +12,10 @@
 			<parent link="${parent}"/>
 			<child link="${name}_mount_link"/>
 		</joint>
+
 		<!-- go from the base of the laser to the actual sensor location -->
 		<joint name="${name}_laser_joint" type="fixed">
-			<origin xyz="0 0 0.058" />
+			<origin xyz="0 0 0.058" rpy="0 0 0"/>
 			<parent link="${name}_mount_link"/>
 			<child link="${name}"/>
 		</joint>
@@ -41,9 +45,7 @@
 		</link>
 
 		<!-- gazebo extensions -->
-		<xacro:hokuyo_laser_gazebo name="${name}_laser" ros_topic="${ros_topic}" update_rate="${update_rate}" min_angle="${min_angle}" max_angle="${max_angle}" range="${range}"/>
+		<xacro:hokuyo_laser_gazebo link_name="${name}" frame_name="${name}" ros_topic="${ros_topic}" update_rate="${update_rate}" min_angle="${min_angle}" max_angle="${max_angle}" range="${range}"/>
     </xacro:macro>
 
 </robot>
-
-
