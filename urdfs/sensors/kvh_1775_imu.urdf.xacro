@@ -30,9 +30,9 @@
 				<geometry>
 					<cylinder radius="0.0482" length="0.0737" />
 				</geometry>
-                                <material name="aluminium">
-                                	<color rgba="0.35 0.35 0.35 1" />	
-                                </material>
+					<material name="aluminium">
+						<color rgba="0.35 0.35 0.35 1" />
+					</material>
 			</visual>
 		</link>
 
@@ -42,6 +42,6 @@
 		 	rate_bias_mean="${rate_bias_mean}" rate_bias_stddev="${rate_bias_stddev}"
 		 	accel_mean="${accel_mean}" accel_stddev="${accel_stddev}" accel_bias_mean="${accel_bias_mean}"
 		 	accel_bias_stddev="${accel_bias_stddev}"/>
-	</xacro:macro>
+		</xacro:macro>
 
 </robot>
