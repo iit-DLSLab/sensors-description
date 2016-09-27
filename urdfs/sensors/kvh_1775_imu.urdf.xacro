@@ -19,19 +19,19 @@
 		<!-- Link -->
 		<link name="${imu_name}">
 			<inertial>
-                <origin xyz="-0.001  0.0005  -0.00405"/>
-                <mass value="0.7"/>
+				<origin xyz="-0.001  0.0005  -0.00405"/>
+				<mass value="0.7"/>
 				<inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" ixz="0.0" iyz="0.0"/>
 			</inertial>
 			<visual>
-                <origin xyz="0.0213 -0.0029 -0.00155" rpy="0 0 0"/>
-                <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+				<origin xyz="0.0213 -0.0029 -0.00155" rpy="0 0 0"/>
+				<origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
 				<geometry>
 					<cylinder radius="0.0482" length="0.0737" />
 				</geometry>
-					<material name="aluminium">
-						<color rgba="0.35 0.35 0.35 1" />
-					</material>
+				<material name="aluminium">
+					<color rgba="0.35 0.35 0.35 1" />
+				</material>
 			</visual>
 		</link>
 
