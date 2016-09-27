@@ -7,8 +7,7 @@
 
 	<!-- ============================ IMU KVH 1775 ============================== -->
 	<!-- The xacro macro xacro:kvh_1775_imu: imu frame -->
-	<xacro:macro name="kvh_1775_imu" params="parent *origin imu_name imu_topic update_rate
-		rate_mean rate_stddev rate_bias_mean rate_bias_stddev accel_mean accel_stddev accel_bias_mean accel_bias_stddev">
+	<xacro:macro name="kvh_1775_imu" params="parent *origin imu_name imu_topic update_rate">
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
