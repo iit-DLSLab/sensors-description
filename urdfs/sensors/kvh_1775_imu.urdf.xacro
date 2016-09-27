@@ -2,7 +2,7 @@
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-    <!--xacro:include filename="$(find sensors_description)/urdfs/sensors/kvh_1775_imu.gazebo.xacro"/-->
+	<xacro:include filename="$(find sensors_description)/urdfs/sensors/imu.gazebo.xacro"/>
 
 
 	<!-- ============================ IMU KVH 1775 ============================== -->
@@ -37,7 +37,7 @@
 		</link>
 
 		<!-- IMU definition -->
-		<xacro:kvh_1775_imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
+		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
 		 	update_rate="${update_rate}" rate_mean="${rate_mean}" rate_stddev="${rate_stddev}"
 		 	rate_bias_mean="${rate_bias_mean}" rate_bias_stddev="${rate_bias_stddev}"
 		 	accel_mean="${accel_mean}" accel_stddev="${accel_stddev}" accel_bias_mean="${accel_bias_mean}"
