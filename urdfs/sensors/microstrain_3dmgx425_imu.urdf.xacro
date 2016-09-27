@@ -3,21 +3,11 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 	<xacro:include filename="$(find sensors_description)/urdfs/sensors/imu.gazebo.xacro"/>
-<!--
-	<property name="rate_mean" value="0" />
-	<property name="rate_stddev" value="2e-4" />
-	<property name="rate_bias_mean" value="0.00087" />
-	<property name="rate_bias_stddev" value="0.0000008" />
-	<property name="accel_mean" value="0" />
-	<property name="accel_stddev" value="1.7e-2" />
-	<property name="accel_bias_mean" value="0.002" />
-	<property name="accel_bias_stddev" value="0.001" />
--->
+
 
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx425_imu: imu frame -->
-	<xacro:macro name="microstrain_3dmgx425_imu" params="parent *origin imu_name imu_topic update_rate
-		rate_mean rate_stddev rate_bias_mean rate_bias_stddev accel_mean accel_stddev accel_bias_mean accel_bias_stddev">
+	<xacro:macro name="microstrain_3dmgx425_imu" params="parent *origin imu_name imu_topic update_rate">
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
@@ -44,12 +34,17 @@
 			</visual>
 		</link>
 		
-		<!-- IMU Gazebo plugin definition -->
+		<!-- IMU Gazebo plugin definition -->				
 		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
-		 	update_rate="${update_rate}" rate_mean="${rate_mean}" rate_stddev="${rate_stddev}"
-		 	rate_bias_mean="${rate_bias_mean}" rate_bias_stddev="${rate_bias_stddev}"
-		 	accel_mean="${accel_mean}" accel_stddev="${accel_stddev}" accel_bias_mean="${accel_bias_mean}"
-		 	accel_bias_stddev="${accel_bias_stddev}"/>
+		 	update_rate="${update_rate}"
+		 	rate_mean="${3dmgx425_vel_mean}"
+		 	rate_stddev="${3dmgx425_vel_stddev}"
+		 	rate_bias_mean="${3dmgx425_vel_bias_mean}"
+		 	rate_bias_stddev="${3dmgx425_vel_bias_stddev}"
+		 	accel_mean="${3dmgx425_acc_mean}"
+		 	accel_stddev="${3dmgx425_acc_stddev}"
+			accel_bias_mean="${3dmgx425_acc_bias_mean}"
+		 	accel_bias_stddev="${3dmgx425_acc_bias_stddev}"/>
 
 	</xacro:macro>
 

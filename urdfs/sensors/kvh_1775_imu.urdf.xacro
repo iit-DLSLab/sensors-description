@@ -38,10 +38,16 @@
 
 		<!-- IMU definition -->
 		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
-		 	update_rate="${update_rate}" rate_mean="${rate_mean}" rate_stddev="${rate_stddev}"
-		 	rate_bias_mean="${rate_bias_mean}" rate_bias_stddev="${rate_bias_stddev}"
-		 	accel_mean="${accel_mean}" accel_stddev="${accel_stddev}" accel_bias_mean="${accel_bias_mean}"
-		 	accel_bias_stddev="${accel_bias_stddev}"/>
-		</xacro:macro>
+		 	update_rate="${update_rate}"
+			rate_mean="${kvh1775_vel_mean}"
+		 	rate_stddev="${kvh1775_vel_stddev}"
+		 	rate_bias_mean="${kvh1775_vel_bias_mean}"
+		 	rate_bias_stddev="${kvh1775_vel_bias_stddev}"
+		 	accel_mean="${kvh1775_acc_mean}"
+		 	accel_stddev="${kvh1775_acc_stddev}"
+			accel_bias_mean="${kvh1775_acc_bias_mean}"
+		 	accel_bias_stddev="${kvh1775_acc_bias_stddev}"/>
+		
+	</xacro:macro>
 
 </robot>
