@@ -4,6 +4,37 @@
 
 	<property name="PI" value="3.1415926535897931"/>
 
+	<!-- TODO checks the imu properties -->
+	<!-- Microstrain kvh1775 IMU -->
+	<property name="kvh_1775_vel_mean" value="0" />
+	<property name="kvh_1775_vel_stddev" value="2e-4" />
+	<property name="kvh_1775_vel_bias_mean" value="0.00087" />
+	<property name="kvh_1775_vel_bias_stddev" value="0.0000008" />
+	<property name="kvh_1775_acc_mean" value="0" />
+	<property name="kvh_1775_acc_stddev" value="1.7e-2" />
+	<property name="kvh_1775_acc_bias_mean" value="0.002" />
+	<property name="kvh_1775_acc_bias_stddev" value="0.001" />	
+
+	<!-- Microstrain 3dmgx425 IMU -->
+	<property name="microstrain_gx425_vel_mean" value="0" />
+	<property name="microstrain_gx425_vel_stddev" value="2e-4" />
+	<property name="microstrain_gx425_vel_bias_mean" value="0.00087" />
+	<property name="microstrain_gx425_vel_bias_stddev" value="0.0000008" />
+	<property name="microstrain_gx425_acc_mean" value="0" />
+	<property name="microstrain_gx425_acc_stddev" value="1.7e-2" />
+	<property name="microstrain_gx425_acc_bias_mean" value="0.002" />
+	<property name="microstrain_gx425_acc_bias_stddev" value="0.001" />	
+
+	<!-- Microstrain 3dmgx325 IMU -->
+	<property name="microstrain_gx325_vel_mean" value="0" />
+	<property name="microstrain_gx325_vel_stddev" value="2e-4" />
+	<property name="microstrain_gx325_vel_bias_mean" value="0.00087" />
+	<property name="microstrain_gx325_vel_bias_stddev" value="0.0000008" />
+	<property name="microstrain_gx325_acc_mean" value="0" />
+	<property name="microstrain_gx325_acc_stddev" value="1.7e-2" />
+	<property name="microstrain_gx325_acc_bias_mean" value="0.002" />
+	<property name="microstrain_gx325_acc_bias_stddev" value="0.001" />		
+
 	<!-- PTU unit -->
 	<property name="pan_velocity" value="1.0" />
 	<property name="pan_range" value="2.775" />
