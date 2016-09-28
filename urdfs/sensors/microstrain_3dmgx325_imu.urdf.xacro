@@ -4,7 +4,6 @@
 
 	<xacro:include filename="$(find sensors_description)/urdfs/sensors/imu.gazebo.xacro"/>
 
-
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx325_imu: imu frame -->
 	<xacro:macro name="microstrain_3dmgx325_imu" params="parent *origin imu_name imu_topic update_rate">
@@ -24,10 +23,13 @@
 				<inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" ixz="0.0" iyz="0.0"/>
 			</inertial>
 			<visual>
-				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<origin xyz="0.00485 0 -0.00105" rpy="0 0 0"/>
 				<geometry>
-					<box size="0.02 0.02 0.02" />
+					<box size="0.0329 0.0244 0.0111" />
 				</geometry>
+				<material name="black">
+					<color rgba="0 0 0 0.9"/>
+				</material>
 			</visual>
 		</link>
 		
