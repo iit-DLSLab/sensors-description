@@ -37,14 +37,14 @@
 		<!-- IMU Gazebo plugin definition -->				
 		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
 		 	update_rate="${update_rate}"
-		 	rate_mean="${3dmgx425_vel_mean}"
-		 	rate_stddev="${3dmgx425_vel_stddev}"
-		 	rate_bias_mean="${3dmgx425_vel_bias_mean}"
-		 	rate_bias_stddev="${3dmgx425_vel_bias_stddev}"
-		 	accel_mean="${3dmgx425_acc_mean}"
-		 	accel_stddev="${3dmgx425_acc_stddev}"
-			accel_bias_mean="${3dmgx425_acc_bias_mean}"
-		 	accel_bias_stddev="${3dmgx425_acc_bias_stddev}"/>
+			rate_mean="${microstrain_gx425_vel_mean}"
+		 	rate_stddev="${microstrain_gx425_vel_stddev}"
+		 	rate_bias_mean="${microstrain_gx425_vel_bias_mean}"
+		 	rate_bias_stddev="${microstrain_gx425_vel_bias_stddev}"
+		 	accel_mean="${microstrain_gx425_acc_mean}"
+		 	accel_stddev="${microstrain_gx425_acc_stddev}"
+			accel_bias_mean="${microstrain_gx425_acc_bias_mean}"
+		 	accel_bias_stddev="${microstrain_gx425_acc_bias_stddev}"/>
 
 	</xacro:macro>
 

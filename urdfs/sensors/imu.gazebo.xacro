@@ -13,13 +13,13 @@
 				<gaussianNoise>${rate_stddev*rate_stddev}</gaussianNoise>
 				<xyzOffset>0 0 0</xyzOffset>
 				<rpyOffset>0 0 0</rpyOffset>
-				<serviceName>/default_imu</serviceName>
+				<serviceName>/${imu_name}_imu</serviceName>
 			</plugin>	
 		</gazebo>
 		
-		<!-- Imu definition required for HyQ2Max hardware interface of ros control -->
+		<!-- Imu definition required for DLS hardware interface of ros control -->
 		<gazebo reference="${imu_name}">
-			<sensor name="trunk_imu" type="imu">
+			<sensor name="${imu_name}" type="imu">
 				<always_on>1</always_on>
 				<update_rate>${update_rate}</update_rate>
 				<imu>
