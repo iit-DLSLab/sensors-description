@@ -10,18 +10,18 @@
 			<mu1>0.9</mu1>
 			<mu2>0.9</mu2>
 		</gazebo>
-		<gazebo reference="hokuyo_link">
+		<gazebo reference="${prefix}/hokuyo_link">
 			<mu1>0.9</mu1>
 			<mu2>0.9</mu2>
 		</gazebo>
-		<gazebo reference="head_hokuyo_frame">
+		<gazebo reference="${prefix}/head_hokuyo_frame">
 			<mu1>0.9</mu1>
 			<mu2>0.9</mu2>
 		</gazebo>
-		<gazebo reference="hokuyo_joint">
+		<gazebo reference="${prefix}/head_hokuyo_frame_joint">
 			<implicitSpringDamper>1</implicitSpringDamper>
 		</gazebo>
-		<gazebo reference="head_hokuyo_frame">
+		<gazebo reference="${prefix}/head_hokuyo_frame">
 			<sensor type="gpu_ray" name="head_hokuyo_sensor">
 				<pose>0 0 0 0 0 0</pose>
 				<visualize>false</visualize>
@@ -50,15 +50,15 @@
 						<stddev>0.01</stddev>
 					</noise>
 				</ray>
-				<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
-					<topicName>/multisense/lidar_scan</topicName>
-					<frameName>head_hokuyo_frame</frameName>
+				<plugin name="${prefix}/head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+					<topicName>${prefix}/lidar_scan</topicName>
+					<frameName>${prefix}/head_hokuyo_frame</frameName>
 				</plugin>
 			</sensor>
 		</gazebo>
 
-		<gazebo reference="left_camera_frame">
-			<sensor type="multicamera" name="stereo_camera">
+		<gazebo reference="${prefix}/left_camera_frame">
+			<sensor type="multicamera" name="${prefix}/stereo_camera">
 			<!-- see MultiSenseSLPlugin.h for available modes -->
 			<update_rate>10.0</update_rate>
 			<camera name="left">
@@ -112,13 +112,13 @@
 					<stddev>0.007</stddev>
 				</noise>
 			</camera>
-			<plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+			<plugin name="${prefix}/stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
 				<alwaysOn>true</alwaysOn>
 				<updateRate>0.0</updateRate>
-				<cameraName>multisense/camera</cameraName>
-				<imageTopicName>image_raw</imageTopicName>
+				<cameraName>${prefix}/camera</cameraName>
+				<imageTopicName>image_color</imageTopicName>
 				<cameraInfoTopicName>camera_info</cameraInfoTopicName>
-				<frameName>left_camera_optical_frame</frameName>
+				<frameName>${prefix}/left_camera_optical_frame</frameName>
 				<!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
 				<hackBaseline>0.07</hackBaseline>
 				<distortionK1>0.0</distortionK1>
@@ -129,11 +129,11 @@
 			</plugin>
 			</sensor>
 		</gazebo>
-		<gazebo reference="head_imu_link">
+		<gazebo reference="${prefix}/head_imu_link">
 			<!-- this is expected to be reparented to head with appropriate offset
 			when head_imu_link is reduced by fixed joint reduction -->
 			<!-- todo: this is working with gazebo 1.4, need to write a unit test -->
-			<sensor name="head_imu_sensor" type="imu">
+			<sensor name="${prefix}/head_imu_sensor" type="imu">
 				<always_on>1</always_on>
 				<update_rate>1000.0</update_rate>
 				<imu>
@@ -176,12 +176,12 @@
 			<plugin filename="libMultiSenseSLPlugin.so" name="multisense_plugin"/>
 		</gazebo>
 
-		<transmission name="hokuyo_trans">
+		<transmission name="${prefix}/hokuyo_trans">
 			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="hokuyo_joint">
+			<joint name="${prefix}/hokuyo_joint">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
 			</joint>
-			<actuator name="hokuyo_motor">
+			<actuator name="${prefix}/hokuyo_motor">
 				<hardwareInterface>EffortJointInterface</hardwareInterface>
 				<mechanicalReduction>1</mechanicalReduction>
 			</actuator>
