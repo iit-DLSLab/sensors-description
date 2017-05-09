@@ -176,16 +176,5 @@
 			<plugin filename="libMultiSenseSLPlugin.so" name="multisense_plugin"/>
 		</gazebo>
 
-		<transmission name="${prefix}/hokuyo_trans">
-			<type>transmission_interface/SimpleTransmission</type>
-			<joint name="${prefix}/hokuyo_joint">
-				<hardwareInterface>EffortJointInterface</hardwareInterface>
-			</joint>
-			<actuator name="${prefix}/hokuyo_motor">
-				<hardwareInterface>EffortJointInterface</hardwareInterface>
-				<mechanicalReduction>1</mechanicalReduction>
-			</actuator>
-		</transmission>
-
 	</xacro:macro>
 </robot>
