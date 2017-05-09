@@ -18,7 +18,7 @@
 			<mu1>0.9</mu1>
 			<mu2>0.9</mu2>
 		</gazebo>
-		<gazebo reference="${prefix}/head_hokuyo_frame_joint">
+		<gazebo reference="${prefix}/motor_joint">
 			<implicitSpringDamper>1</implicitSpringDamper>
 		</gazebo>
 		<gazebo reference="${prefix}/head_hokuyo_frame">

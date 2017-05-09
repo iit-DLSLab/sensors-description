@@ -70,6 +70,8 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   this->world = _parent->GetWorld();
   this->sdf = _sdf;
 
+
+  std::string prefix = "multisense/";
   ROS_DEBUG("Loading Multisense ROS node.");
 
   this->lastTime = this->world->GetSimTime();
@@ -82,24 +84,18 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   }
 
   // Get sensors
+  std::string imu_name = prefix + "head_imu_sensor";
   this->imuSensor =
     boost::dynamic_pointer_cast<sensors::ImuSensor>
-      (sensors::SensorManager::Instance()->GetSensor("head_imu_sensor"));
+      (sensors::SensorManager::Instance()->GetSensor(imu_name));
   if (!this->imuSensor)
-    gzerr << "head_imu_sensor not found\n" << "\n";
+    gzerr << imu_name << " not found\n" << "\n";
 
-  // \todo: add ros topic / service to reset imu (imuReferencePose, etc.)
-  this->spindleLink = this->robotModel->GetLink("hokuyo_link");
-  if (!this->spindleLink)
-  {
-    gzerr << "spindle link not found, plugin will stop loading\n";
-    return;
-  }
-
-  this->spindleJoint = this->robotModel->GetJoint("hokuyo_joint");
+  std::string spindle_name = prefix + "motor_joint";
+  this->spindleJoint = this->robotModel->GetJoint(spindle_name);
   if (!this->spindleJoint)
   {
-    gzerr << "spindle joint not found, plugin will stop loading\n";
+    gzerr << spindle_name << " not found, plugin will stop loading\n";
     return;
   }
 
@@ -114,11 +110,12 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   //                                  siter != s.end(); ++siter)
   //   gzerr << (*siter)->GetName() << "\n";
 
+  std::string stereo_name = prefix + "stereo_camera";
   this->multiCameraSensor =
     boost::dynamic_pointer_cast<sensors::MultiCameraSensor>(
-    sensors::SensorManager::Instance()->GetSensor("stereo_camera"));
+    sensors::SensorManager::Instance()->GetSensor(stereo_name));
   if (!this->multiCameraSensor)
-    gzerr << "multicamera sensor not found\n";
+    gzerr << stereo_name << " sensor not found\n";
 
   // get default frame rate
   this->multiCameraFrameRate = this->multiCameraSensor->GetUpdateRate();
@@ -149,12 +146,13 @@ void MultiSenseSL::LoadThread()
   this->pmq->startServiceThread();
 
   this->rosNamespace = "/multisense";
+  std::string robot_name = "/hyq";
 
   // ros publications
   // publish joint states for tf (robot state publisher)
   this->pubJointStatesQueue = this->pmq->addPub<sensor_msgs::JointState>();
   this->pubJointStates = this->rosnode_->advertise<sensor_msgs::JointState>(
-    this->rosNamespace + "/joint_states", 10);
+    robot_name + "/joint_states", 10);
 
   // publish imu data
   this->pubImuQueue = this->pmq->addPub<sensor_msgs::Imu>();
