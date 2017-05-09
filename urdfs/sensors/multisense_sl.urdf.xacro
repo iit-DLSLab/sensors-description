@@ -27,7 +27,7 @@
 	<joint name="${prefix}/left_camera_optical_joint" type="fixed">
 		<parent link="${prefix}/left_camera_optical_frame" />
 		<child link="${prefix}/motor" />
-		<origin xyz="0.027 -0.097 -0.017" rpy="0. 0. 2." />
+		<origin xyz="0.027155533433 -0.0971753746271 -0.0172099247575" rpy="0.001972222 0.007801622 2.064951398" />
 	</joint>
 	<joint name="${prefix}/motor_joint" type="continuous">
 		<parent link="${prefix}/motor" />
@@ -37,7 +37,7 @@
 	<joint name="${prefix}/spindle_joint" type="fixed">
 		<parent link="${prefix}/spindle" />
 		<child link="${prefix}/hokuyo_link" />
-		<origin xyz="0.001 0.01 0.0" rpy="0. 0. 0." />
+		<origin xyz="0.000662488571834 0.00996151566505 -0.00000718757200957" rpy="1.668656938 -1.547932514 3.043697136" />
 	</joint>
 	<joint name="${prefix}/head_hokuyo_frame_joint" type="fixed"> 
 		<!--
