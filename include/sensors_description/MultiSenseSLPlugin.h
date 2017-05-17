@@ -172,6 +172,10 @@ namespace gazebo
 
     // ros publish multi queue, prevents publish() blocking
     private: PubMultiQueue* pmq;
+
+      // Namespaces
+    private:
+      std::string robot_name;
   };
 }
 #endif
