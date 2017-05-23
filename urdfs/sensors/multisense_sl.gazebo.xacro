@@ -47,7 +47,12 @@
 						stddev of 0.01m will put 99.7% of samples within 0.03m of the true
 						reading. -->
 						<mean>0.0</mean>
-						<stddev>0.01</stddev>
+            <!-- mfallon: if stddev > 0, points at max range e.g. 30m
+            (i.e. returns not observing anything) will return less than max
+            range e.g. 29.8m. This then messes up the laser filter chain.
+            this seems to be fixed in more recent versions of gazebo
+            -->
+						<stddev>0.0</stddev>
 					</noise>
 				</ray>
 				<plugin name="${prefix}/head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
