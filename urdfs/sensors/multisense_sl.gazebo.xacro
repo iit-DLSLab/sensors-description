@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-	<xacro:macro name="multisense_sl_sensor" params="prefix robot_name">
+	<xacro:macro name="multisense_sl_sensor" params="prefix">
 		<gazebo reference="head_root">
 			<mu1>0.9</mu1>
 			<mu2>0.9</mu2>
@@ -178,9 +178,7 @@
 			</sensor>
 		</gazebo>
 		<gazebo>
-			<plugin filename="libMultiSenseSLPlugin.so" name="multisense_plugin">
-                <robot_name>${robot_name}</robot_name>
-            </plugin>
+			<plugin filename="libMultiSenseSLPlugin.so" name="multisense_plugin"/>
 		</gazebo>
      </xacro:macro>
 </robot>

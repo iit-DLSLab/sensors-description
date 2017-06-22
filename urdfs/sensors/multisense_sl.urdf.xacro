@@ -4,7 +4,7 @@
 <xacro:include filename="$(find sensors_description)/urdfs/sensors/multisense_sl.gazebo.xacro"/>
 
 
-<xacro:macro name="multisense_sl" params="parent *origin prefix robot_name" >
+<xacro:macro name="multisense_sl" params="parent *origin prefix" >
 
 	<joint name="${parent}_head_root_joint" type="fixed">
 		<insert_block name="origin"/>
@@ -46,8 +46,7 @@
 		Thus a roll of -90 * a pitch of -90 will make the appropriate transform. Note
 		Roll and pitch are both with respect to the origional x left, y up, z forward frame
 		-->
-		<!--origin xyz="0 0 0" rpy="-1.57079632679 -1.57079632679 0.0" /-->
-                <origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 0" rpy="-1.57079632679 -1.57079632679 0.0" />
 		<parent link="${prefix}/hokuyo_link" />
 		<child link="${prefix}/head_hokuyo_frame"/>
 	</joint>
@@ -261,6 +260,6 @@
 
 
 	<!-- Gazebo multisense plugin -->
-	<xacro:multisense_sl_sensor prefix="${prefix}" robot_name="${robot_name}"/>
+	<xacro:multisense_sl_sensor prefix="${prefix}"/>
 </xacro:macro>
 </robot>

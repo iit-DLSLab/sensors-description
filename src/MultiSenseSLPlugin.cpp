@@ -28,8 +28,7 @@ namespace gazebo
 GZ_REGISTER_MODEL_PLUGIN(MultiSenseSL)
 
 ////////////////////////////////////////////////////////////////////////////////
-MultiSenseSL::MultiSenseSL() :
-     robot_name("/hyq")
+MultiSenseSL::MultiSenseSL()
 {
   /// \todo: hardcoded for now, make them into plugin parameters
   this->spindlePID.Init(0.03, 0.30, 0.00001, 1., -1., 10.0, -10.0);
@@ -147,12 +146,7 @@ void MultiSenseSL::LoadThread()
   this->pmq->startServiceThread();
 
   this->rosNamespace = "/multisense";
-  if (!this->sdf->HasElement("robot_name")) {
-      ROS_INFO("imu plugin missing <robot_name>, defaults to /hyq");
-  }
-  else {
-      this->robot_name = this->sdf->Get<std::string>("robot_name");
-  }
+  std::string robot_name = "/hyq";
 
   // ros publications
   // publish joint states for tf (robot state publisher)
