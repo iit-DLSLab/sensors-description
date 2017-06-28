@@ -49,6 +49,14 @@ MultiSenseSL::MultiSenseSL()
   this->rosNamespace = "/multisense";
 
   this->pmq = new PubMultiQueue();
+
+  this->laser_to_spindle_.setIdentity();
+  this->motor_to_camera_.setIdentity();
+    this->left_camera_optical_ =   "multisense/left_camera_optical_frame";
+    this->motor_ = "multisense/motor";
+    this->spindle_ = "multisense/spindle";
+    this->hokuyo_ = "multisense/head_hokuyo_frame";
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +127,6 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
 
   // get default frame rate
   this->multiCameraFrameRate = this->multiCameraSensor->GetUpdateRate();
-
 
   if (!sensors::SensorManager::Instance()->GetSensor("head_hokuyo_sensor"))
     gzerr << "laser sensor not found\n";
@@ -308,6 +315,18 @@ void MultiSenseSL::UpdateStates()
       imuMsg.orientation.z = imuRot.z;
       imuMsg.orientation.w = imuRot.w;
     }
+
+
+    //
+    // Publish the static transforms from our calibration.
+    static_tf_broadcaster_.sendTransform(tf::StampedTransform(motor_to_camera_,
+                                          ros::Time(curTime.Double()),left_camera_optical_,
+                                          motor_));
+
+
+
+    static_tf_broadcaster_.sendTransform(tf::StampedTransform(laser_to_spindle_,
+                                          ros::Time(curTime.Double()), spindle_, hokuyo_));
 
     this->pubImuQueue->push(imuMsg, this->pubImu);
   }
