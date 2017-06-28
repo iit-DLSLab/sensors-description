@@ -49,6 +49,34 @@ MultiSenseSL::MultiSenseSL()
   this->rosNamespace = "/multisense";
 
   this->pmq = new PubMultiQueue();
+
+    // These two transforms are fixed and taken from internal calibration of the
+    // multisense. They should be equal to the origin of the fake joints
+    // defined in the multisense_sl.urdf.xacro file,
+    // even though they are in RPY format there.
+    this->motor_to_camera_.setOrigin(tf::Vector3(0.027155533433,
+                                                 -0.0971753746271,
+                                                 -0.0172099247575));
+
+    this->motor_to_camera_.setRotation(tf::Quaternion(-0.00284684825362,
+                                                      0.00284684825362,
+                                                      0.858563220921,
+                                                      0.512691882894));
+
+    this->laser_to_spindle_.setOrigin(tf::Vector3(0.000662488571834,
+                                                  0.00996151566505,
+                                                  -7.18757200957e-06));
+
+    this->laser_to_spindle_.setRotation(tf::Quaternion(-0.00111727367235,
+                                                       -0.0113784726912,
+                                                       -1.27136996881e-05,
+                                                       0.999934641371));
+
+    this->left_camera_optical_ =   "multisense/left_camera_optical_frame";
+    this->motor_ = "multisense/motor";
+    this->spindle_ = "multisense/spindle";
+    this->hokuyo_ = "multisense/hokuyo_link";
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -91,11 +119,11 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   if (!this->imuSensor)
     gzerr << imu_name << " not found\n" << "\n";
 
-  std::string spindle_name = prefix + "motor_joint";
-  this->spindleJoint = this->robotModel->GetJoint(spindle_name);
-  if (!this->spindleJoint)
+  std::string motor_joint_name = prefix + "motor_joint";
+  this->motor_joint = this->robotModel->GetJoint(motor_joint_name);
+  if (!this->motor_joint)
   {
-    gzerr << spindle_name << " not found, plugin will stop loading\n";
+    gzerr << motor_joint_name << " not found, plugin will stop loading\n";
     return;
   }
 
@@ -104,6 +132,33 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   this->jointStates.position.resize(1);
   this->jointStates.velocity.resize(1);
   this->jointStates.effort.resize(1);
+
+  // get fake joints and block them
+  std::string camera_joint_name = prefix + "left_camera_optical_joint";
+  this->camera_joint = this->robotModel->GetJoint(camera_joint_name);
+
+  if (this->camera_joint) {
+      // Setting limits to 0 so the joint doesn't move
+      this->camera_joint->SetLowStop(0,math::Angle::Zero);
+      this->camera_joint->SetHighStop(0,math::Angle::Zero);
+  } else {
+      gzwarn << camera_joint_name << " not found! Things may not work for ";
+      gzwarn << "the simulated Hokuyo. Have you set the joint in ";
+      gzwarn << "multisense_sl.gazebo.xacro file?" << std::endl;
+  }
+
+  std::string spindle_joint_name = prefix + "spindle_joint";
+  this->spindle_joint = this->robotModel->GetJoint(spindle_joint_name);
+  if(this->spindle_joint){
+      // Setting limits to 0 so the joint doesn't move
+      this->spindle_joint->SetLowStop(0,math::Angle::Zero);
+      this->spindle_joint->SetHighStop(0,math::Angle::Zero);
+  } else {
+      gzwarn << spindle_joint_name << " not found! Things may not work for ";
+      gzwarn << "the simulated Hokuyo. Have you set the joint in ";
+      gzwarn << "multisense_sl.gazebo.xacro file?" << std::endl;
+  }
+
 
   // sensors::Sensor_V s = sensors::SensorManager::Instance()->GetSensors();
   // for (sensors::Sensor_V::iterator siter = s.begin();
@@ -119,7 +174,6 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
 
   // get default frame rate
   this->multiCameraFrameRate = this->multiCameraSensor->GetUpdateRate();
-
 
   if (!sensors::SensorManager::Instance()->GetSensor("head_hokuyo_sensor"))
     gzerr << "laser sensor not found\n";
@@ -309,6 +363,18 @@ void MultiSenseSL::UpdateStates()
       imuMsg.orientation.w = imuRot.w;
     }
 
+
+    //
+    // Publish the static transforms from our calibration.
+    static_tf_broadcaster_.sendTransform(tf::StampedTransform(motor_to_camera_,
+                                          ros::Time(curTime.Double()),left_camera_optical_,
+                                          motor_));
+
+
+
+    static_tf_broadcaster_.sendTransform(tf::StampedTransform(laser_to_spindle_,
+                                          ros::Time(curTime.Double()), spindle_, hokuyo_));
+
     this->pubImuQueue->push(imuMsg, this->pubImu);
   }
 
@@ -316,20 +382,22 @@ void MultiSenseSL::UpdateStates()
   if (dt > 0)
   {
     this->jointStates.header.stamp = ros::Time(curTime.sec, curTime.nsec);
-    this->jointStates.name[0] = this->spindleJoint->GetName();
-    math::Angle angle = this->spindleJoint->GetAngle(0);
+    this->jointStates.name[0] = this->motor_joint->GetName();
+    math::Angle angle = this->motor_joint->GetAngle(0);
     angle.Normalize();
     this->jointStates.position[0] = angle.Radian();
-    this->jointStates.velocity[0] = this->spindleJoint->GetVelocity(0);
+    this->jointStates.velocity[0] = this->motor_joint->GetVelocity(0);
     this->jointStates.effort[0] = 0;
 
     if (this->spindleOn)
     {
       // PID control (velocity) spindle
-      double spindleError = this->spindleJoint->GetVelocity(0)
+      double spindleError = this->motor_joint->GetVelocity(0)
                           - this->spindleSpeed;
       double spindleCmd = this->spindlePID.Update(spindleError, dt);
-      this->spindleJoint->SetForce(0, spindleCmd);
+      this->motor_joint->SetForce(0, spindleCmd);
+
+
 
       this->jointStates.effort[0] = spindleCmd;
 

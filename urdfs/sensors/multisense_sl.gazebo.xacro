@@ -21,6 +21,12 @@
 		<gazebo reference="${prefix}/motor_joint">
 			<implicitSpringDamper>1</implicitSpringDamper>
 		</gazebo>
+		<gazebo reference="${prefix}/left_camera_optical_joint">
+			<implicitSpringDamper>1</implicitSpringDamper>
+		</gazebo>
+		<gazebo reference="${prefix}/spindle_joint">
+			<implicitSpringDamper>1</implicitSpringDamper>
+		</gazebo>
 		<gazebo reference="${prefix}/head_hokuyo_frame">
 			<sensor type="gpu_ray" name="head_hokuyo_sensor">
 				<pose>0 0 0 0 0 0</pose>
