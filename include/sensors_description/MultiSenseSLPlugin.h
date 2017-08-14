@@ -27,6 +27,8 @@
 #include <ros/callback_queue.h>
 #include <ros/advertise_options.h>
 #include <ros/subscribe_options.h>
+#include <tf/transform_broadcaster.h>
+#include <tf/transform_datatypes.h>
 
 #include <geometry_msgs/Twist.h>
 #include <geometry_msgs/Pose.h>
@@ -163,7 +165,9 @@ namespace gazebo
     private: double spindleMinRPM;
     private: bool spindleOn;
     private: physics::LinkPtr spindleLink;
-    private: physics::JointPtr spindleJoint;
+    private: physics::JointPtr motor_joint;
+    private: physics::JointPtr spindle_joint; // fake joint (static)
+    private: physics::JointPtr camera_joint;  // fake joint (static)
     private: common::PID spindlePID;
 
     /// Throttle update rate
@@ -172,6 +176,17 @@ namespace gazebo
 
     // ros publish multi queue, prevents publish() blocking
     private: PubMultiQueue* pmq;
+    tf::TransformBroadcaster static_tf_broadcaster_;
+
+    tf::Transform motor_to_camera_;
+    tf::Transform laser_to_spindle_;
+
+    //
+    // Frames to Publish
+    std::string left_camera_optical_;
+    std::string motor_;
+    std::string spindle_;
+    std::string hokuyo_;
   };
 }
 #endif

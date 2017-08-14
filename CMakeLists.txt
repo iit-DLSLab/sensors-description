@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
              sensor_msgs
              geometry_msgs
              gazebo_plugins
+tf
 )
 
 find_package(gazebo REQUIRED)
