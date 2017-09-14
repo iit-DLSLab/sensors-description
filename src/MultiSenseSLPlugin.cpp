@@ -114,7 +114,7 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
   // Get sensors
   std::string imu_name = prefix + "head_imu_sensor";
   this->imuSensor =
-    boost::dynamic_pointer_cast<sensors::ImuSensor>
+    std::dynamic_pointer_cast<sensors::ImuSensor>
       (sensors::SensorManager::Instance()->GetSensor(imu_name));
   if (!this->imuSensor)
     gzerr << imu_name << " not found\n" << "\n";
@@ -167,13 +167,13 @@ void MultiSenseSL::Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
 
   std::string stereo_name = prefix + "stereo_camera";
   this->multiCameraSensor =
-    boost::dynamic_pointer_cast<sensors::MultiCameraSensor>(
+    std::dynamic_pointer_cast<sensors::MultiCameraSensor>(
     sensors::SensorManager::Instance()->GetSensor(stereo_name));
   if (!this->multiCameraSensor)
     gzerr << stereo_name << " sensor not found\n";
 
   // get default frame rate
-  this->multiCameraFrameRate = this->multiCameraSensor->GetUpdateRate();
+  this->multiCameraFrameRate = this->multiCameraSensor->UpdateRate();
 
   if (!sensors::SensorManager::Instance()->GetSensor("head_hokuyo_sensor"))
     gzerr << "laser sensor not found\n";
@@ -339,7 +339,7 @@ void MultiSenseSL::UpdateStates()
 
     // compute angular rates
     {
-      math::Vector3 wLocal = this->imuSensor->GetAngularVelocity();
+      math::Vector3 wLocal = this->imuSensor->AngularVelocity();
       imuMsg.angular_velocity.x = wLocal.x;
       imuMsg.angular_velocity.y = wLocal.y;
       imuMsg.angular_velocity.z = wLocal.z;
@@ -347,7 +347,7 @@ void MultiSenseSL::UpdateStates()
 
     // compute acceleration
     {
-      math::Vector3 accel = this->imuSensor->GetLinearAcceleration();
+      math::Vector3 accel = this->imuSensor->LinearAcceleration();
       imuMsg.linear_acceleration.x = accel.x;
       imuMsg.linear_acceleration.y = accel.y;
       imuMsg.linear_acceleration.z = accel.z;
@@ -356,7 +356,7 @@ void MultiSenseSL::UpdateStates()
     // compute orientation
     {
       math::Quaternion imuRot =
-        this->imuSensor->GetOrientation();
+        this->imuSensor->Orientation();
       imuMsg.orientation.x = imuRot.x;
       imuMsg.orientation.y = imuRot.y;
       imuMsg.orientation.z = imuRot.z;
@@ -578,10 +578,10 @@ void MultiSenseSL::SetMultiCameraResolution(
 
   this->multiCameraSensor->SetUpdateRate(this->multiCameraFrameRate);
 
-  for (unsigned int i = 0; i < this->multiCameraSensor->GetCameraCount(); ++i)
+  for (unsigned int i = 0; i < this->multiCameraSensor->CameraCount(); ++i)
   {
-    this->multiCameraSensor->GetCamera(i)->SetImageWidth(width);
-    this->multiCameraSensor->GetCamera(i)->SetImageHeight(height);
+    this->multiCameraSensor->Camera(i)->SetImageWidth(width);
+    this->multiCameraSensor->Camera(i)->SetImageHeight(height);
   }
 }
 
