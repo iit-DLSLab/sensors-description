@@ -19,10 +19,15 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
+find_package(PkgConfig)
+pkg_check_modules(OGRE OGRE)
+
 include_directories(
   ${PROJECT_SOURCE_DIR}/include
   ${catkin_INCLUDE_DIRS}
   ${GAZEBO_INCLUDE_DIRS}
+  ${OGRE_INCLUDE_DIRS}/Paging
+  ${OGRE_INCLUDE_DIRS}/Terrain
 )
 
 link_directories(

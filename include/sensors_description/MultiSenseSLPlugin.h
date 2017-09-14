@@ -82,7 +82,7 @@ namespace gazebo
     private: boost::thread deferred_load_thread_;
 
     // IMU sensor
-    private: boost::shared_ptr<sensors::ImuSensor> imuSensor;
+    private: std::shared_ptr<sensors::ImuSensor> imuSensor;
     private: std::string imuLinkName;
     private: physics::LinkPtr imuLink;
     private: ros::Publisher pubImu;
@@ -153,7 +153,7 @@ namespace gazebo
     private: sensor_msgs::JointState jointStates;
 
     // camera control
-    private: boost::shared_ptr<sensors::MultiCameraSensor> multiCameraSensor;
+    private: std::shared_ptr<sensors::MultiCameraSensor> multiCameraSensor;
     private: double multiCameraFrameRate;
     private: double multiCameraExposureTime;
     private: double multiCameraGain;
