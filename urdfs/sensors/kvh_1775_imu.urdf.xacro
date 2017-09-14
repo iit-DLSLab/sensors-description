@@ -11,7 +11,7 @@
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
-			<insert_block name="origin"/>
+			<xacro:insert_block name="origin"/>
 			<parent link="${parent}" />
 			<child link="${imu_name}"/>
 		</joint>
