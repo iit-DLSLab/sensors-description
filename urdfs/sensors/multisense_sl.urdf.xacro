@@ -7,7 +7,7 @@
 <xacro:macro name="multisense_sl" params="parent *origin prefix" >
 
 	<joint name="${parent}_head_root_joint" type="fixed">
-		<insert_block name="origin"/>
+		<xacro:insert_block name="origin"/>
 		<parent link="${parent}"/>
 		<child link="head_root"/>
 	</joint>

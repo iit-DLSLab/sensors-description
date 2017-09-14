@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<root xmlns:xacro="http://www.ros.org/wiki/xacro">
+<root xmlns:xacro="http://ros.org/wiki/xacro">
 
 
 
 	<xacro:include filename="$(find sensors_description)/urdfs/sensors/kinect.gazebo.xacro" />
 
-	<property name="ir_depth_rgb_offset_y" value="0.01"/> <!-- FIXME: what is this offset? -->
+	<xacro:property name="ir_depth_rgb_offset_y" value="0.01"/> <!-- FIXME: what is this offset? -->
 
 
 	<!-- ===================================== KINECT & PROSILICA ==================================== -->
@@ -15,7 +15,7 @@
 
 		<!-- Joints -->
 		<joint name="${name}_kinect_joint" type="fixed">
-			<insert_block name="origin"/>
+			<xacro:insert_block name="origin"/>
 			<parent link="${parent}"/>
 			<child link="${name}_kinect_link"/>
 		</joint>
