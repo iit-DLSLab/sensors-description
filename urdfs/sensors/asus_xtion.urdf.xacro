@@ -56,12 +56,12 @@
 					<color rgba="0.5 0.5 0.5 1"/>
 				</material>
 			</visual>
-			<collision>
+			<!--<collision>
 				<origin xyz="0 0 ${asus_xtion_z}" rpy="0 0 0" />
 				<geometry>
 					<box size="0.05 .18 0.035" />
 				</geometry>
-			</collision>
+			</collision>-->
 		</link>
 		
 		<!-- ir sensor link -->
@@ -77,12 +77,12 @@
 					<sphere radius="0.0005"/>
 				</geometry>
 			</visual>
-			<collision>
+			<!--<collision>
 				<origin xyz="0 0 0" rpy="0 0 0"/>
 				<geometry>
 					<sphere radius="0.0005"/>
 				</geometry>
-			</collision>
+			</collision>-->
 		</link>
 		
 		<!-- ir optical sensor link -->
@@ -101,12 +101,12 @@
 					<sphere radius="0.0005"/>
 				</geometry>
 			</visual>
-			<collision>
+			<!--<collision>
 				<origin xyz="0 0 0" rpy="0 0 0"/>
 				<geometry>
 					<sphere radius="0.0005"/>
 				</geometry>
-			</collision>
+			</collision>-->
 		</link>
 		
 		<!-- rgb optical sensor link -->
