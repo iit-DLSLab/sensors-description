@@ -200,7 +200,7 @@ void MultiSenseSL::LoadThread()
   this->pmq->startServiceThread();
 
   this->rosNamespace = "/multisense";
-  std::string robot_name = "/hyq";
+  std::string robot_name = "/" + this->robotModel->GetName();
 
   // ros publications
   // publish joint states for tf (robot state publisher)
