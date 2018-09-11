@@ -28,13 +28,13 @@
 <xacro:macro name="sensor_r430" params="parent *origin prefix">
 
 	<!-- camera body, with origin at bottom screw mount -->
-	<joint name="${parent}_camera_joint" type="fixed">
+	<joint name="${prefix}/${parent}_camera_joint" type="fixed">
 		<xacro:insert_block name="origin" />
 		<parent link="${parent}"/>
-		<child link="camera_link" />
+		<child link="${prefix}/camera_link" />
 	</joint>
 
-	<link name="camera_link">
+	<link name="${prefix}/camera_link">
 		<visual>
 			<origin xyz="0 ${-r430_cam_mount_from_center_offset} ${r430_cam_height/2}" rpy="${M_PI/2} 0 ${M_PI/2}"/>
 			<geometry>
@@ -60,7 +60,7 @@
 	<!-- camera depth joints and links -->
 	<joint name="${prefix}/camera_depth_joint" type="fixed">
 		<origin xyz="${r430_cam_depth_px} ${r430_cam_depth_py} ${r430_cam_depth_pz}" rpy="0 0 0"/>
-		<parent link="camera_link"/>
+		<parent link="${prefix}/camera_link"/>
 		<child link="${prefix}/camera_depth_frame" />
 	</joint>
 	<link name="${prefix}/camera_depth_frame"/>
