@@ -24,6 +24,18 @@
 		<arg name="enable_imu"		value="false"/>
 		<arg name="enable_pointcloud"	value="false"/>
 		<arg name="enable_sync"		value="true"/>
+		  <arg name="spatial_filter"      default="true"/>
+		  <arg name="spatial_alpha"       default="0.6"/> <!-- 0.45 -->
+		  <arg name="spatial_delta"       default="8"/>
+		  <arg name="spatial_iterations"  default="5"/>
+		  <arg name="temporal_filter"      default="true"/>
+		  <arg name="temporal_alpha"       default="0.4"/>
+		  <arg name="temporal_delta"       default="20"/>
+		  <arg name="temporal_persistence" default="3"/>
+		  <arg name="holes_filter"         default="false"/>
+		  <arg name="holes_filling_mode"   default="1"/>
+		  <arg name="decimation_filter"    default="false"/>
+		  <arg name="dec_downsample_scale" default="2"/>
 		</include>
 
 		<node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz $(arg manager) $(arg bond)" respawn="$(arg respawn)">
@@ -31,6 +43,8 @@
 			<remap from="image_rect"	to="depth/image_rect_raw" />
 			<remap from="points"		to="depth/points" />
 		</node>
+
+	<node pkg="tf" type="static_transform_publisher" name="fake_tf1" args="0 0 0 0 0 -0.383972 front/camera_depth_optical_frame camera_depth_optical_frame 10"/>
 
 		<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/rviz/pointcloud.rviz" required="true" /> -->
 	</group>
