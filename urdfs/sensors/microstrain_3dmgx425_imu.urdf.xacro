@@ -7,30 +7,50 @@
 
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx425_imu: imu frame -->
+        <!-- see Fig. 34 page 61 of Technical manual -->
 	<xacro:macro name="microstrain_3dmgx425_imu" params="parent *origin imu_name imu_topic update_rate">
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
-			<xacro:insert_block name="origin"/>
-			<parent link="${parent}" />
-			<child link="${imu_name}"/>
+                        <origin xyz="0.00485 0 0.0045" rpy="0.0 ${-PI} 0.0"/>
+                        <parent link="${imu_name}_mount" />
+                        <child link="${imu_name}"/>
 		</joint>
+
+                <joint name="${imu_name}_mount_joint" type="fixed">
+                        <xacro:insert_block name="origin"/>
+                        <parent link="${parent}" />
+                        <child link="${imu_name}_mount"/>
+                </joint>
+
+                <link name="${imu_name}_mount">
+                <inertial>
+                    <origin xyz="-0.00020  0.00010  0.00110"/>
+                    <mass value="0.001"/>
+                    <inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" ixz="0.0" iyz="0.0"/>
+                </inertial>
+                <visual>
+                        <origin xyz="0.0 0.0 0.00555" rpy="0 0 0"/>
+                        <geometry>
+                                <box size="0.0329 0.0244 0.0111" />
+                        </geometry>
+                        <material name="black">
+                                <color rgba="0 0 0 0.9"/>
+                        </material>
+                </visual>
+                </link>
 
 		<!-- Link -->
 		<link name="${imu_name}">
 			<inertial>
-				<origin xyz="-0.00020  0.00010  0.00110"/>
-				<mass value="0.018"/>
+                                <origin xyz="0.0  0.0  0.0"/>
+                                <mass value="0.001"/>
 				<inertia ixx="0.0" iyy="0.0" izz="0.0" ixy="0.0" ixz="0.0" iyz="0.0"/>
 			</inertial>
-			<visual>
-				<origin xyz="0.00485 0 -0.00105" rpy="0 0 0"/>
+			<visual>			
 				<geometry>
-					<box size="0.0329 0.0244 0.0111" />
-				</geometry>
-				<material name="black">
-					<color rgba="0 0 0 0.9"/>
-				</material>
+                                        <sphere radius="0.0005" />
+				</geometry>				
 			</visual>
 		</link>
 		
