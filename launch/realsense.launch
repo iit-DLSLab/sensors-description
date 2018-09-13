@@ -1,3 +1,5 @@
+<?xml version="0.0" ?>
+
 <launch>
 	<arg name="serial_no" default=""/>
 	<arg name="json_file_path" default=""/>
@@ -44,7 +46,7 @@
 			<remap from="points"		to="depth/points" />
 		</node>
 
-	<node pkg="tf" type="static_transform_publisher" name="fake_tf1" args="0 0 0 0 0 -0.383972 front/camera_depth_optical_frame camera_depth_optical_frame 10"/>
+	<node pkg="tf" type="static_transform_publisher" name="fake_tf1" args="0 0 0.1 0 0 -0.383972 front/camera_depth_optical_frame camera_depth_optical_frame 10"/>
 
 		<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/rviz/pointcloud.rviz" required="true" /> -->
 	</group>

@@ -13,12 +13,12 @@
 		<arg name="publish_tf" value="$(arg publish_tf)" />
 	</include>
 	
-	<!-- Reconfiguration of the Asus Xtion parameters -->
+	<!-- Reconfiguration of the Asus Xtion parameters 
 	<node name="asus_reconfiguration" pkg="dynamic_reconfigure" type="dynparam" 
 		args="set_from_parameters /asus/driver">
+		<param name="depth_mode" type="int" value="11" />
 		<param name="ir_mode" type="int" value="11" />
 		<param name="color_mode" type="int" value="11" />
-		<param name="depth_mode" type="int" value="11" />
-	</node>
+	</node> -->
 
 </launch>
