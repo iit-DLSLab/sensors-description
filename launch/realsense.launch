@@ -1,7 +1,7 @@
 <?xml version="0.0" ?>
 
 <launch>
-	<arg name="serial_no" default=""/>
+	<arg name="serial_no" default="750612070733"/>
 	<arg name="json_file_path" default=""/>
 	<arg name="manager" default="realsense2_camera_manager"/>
 	<arg name="bond" default="false" />
@@ -38,6 +38,9 @@
 		  <arg name="holes_filling_mode"   default="1"/>
 		  <arg name="decimation_filter"    default="false"/>
 		  <arg name="dec_downsample_scale" default="2"/>
+		<arg name="base_frame_id"		default="front/camera_link"/>
+		<arg name="depth_frame_id"		default="front/camera_depth_frame"/>
+		<arg name="depth_optical_frame_id"	default="front/camera_depth_optical_frame"/>
 		</include>
 
 		<node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz $(arg manager) $(arg bond)" respawn="$(arg respawn)">
@@ -46,8 +49,5 @@
 			<remap from="points"		to="depth/points" />
 		</node>
 
-	<node pkg="tf" type="static_transform_publisher" name="fake_tf1" args="0 0 0.1 0 0 -0.383972 front/camera_depth_optical_frame camera_depth_optical_frame 10"/>
-
-		<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/rviz/pointcloud.rviz" required="true" /> -->
 	</group>
 </launch>
