@@ -1,22 +1,23 @@
 <?xml version="1.0" ?>
 <launch>
-	<arg name="serial_no1" default="750612070733"/>
-	<arg name="serial_no2" default="740112071450"/>
-	<arg name="json_file_path" default=""/>
-	<arg name="manager" default="realsense2_camera_manager"/>
-	<arg name="bond" default="false" />
-	<arg name="respawn" default="$(arg bond)" />
-	<arg name="launch_robot_state_publisher" default="false" />
+
+<arg name="serial_no1" default="750612070733"/>
+<arg name="serial_no2" default="740112071450"/>
+<arg name="json_file_path" default=""/>
+<arg name="manager" default="realsense2_camera_manager"/>
+<arg name="bond" default="false" />
+<arg name="respawn" default="$(arg bond)" />
+<arg name="launch_robot_state_publisher" default="false" />
+<arg name="multirealsense" default="false" />
 
 
-<!-- Robot state publisher -->
 <group if = "$(arg launch_robot_state_publisher)">
 	<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find sensors_description)/urdfs/sensors/standalone_realsense.urdf.xacro' name:=realsense"/>
 	<node pkg="robot_state_publisher" type="state_publisher" name="realsense_state_publisher"/>
 </group>
 
 
-<group ns="realsense/front">
+<group unless="$(arg multirealsense)" ns="realsense/front">
 	<include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
 		<arg name="serial_no"			value="$(arg serial_no1)"/>
 		<arg name="manager"			value="$(arg manager)_front"/>
@@ -60,7 +61,7 @@
 
 </group>
 
-<group ns="realsense/back">
+<group if="$(arg multirealsense)" ns="realsense/back">
 	<include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
 		<arg name="serial_no"			value="$(arg serial_no2)"/>
 		<arg name="manager"			value="$(arg manager)_back"/>
@@ -102,5 +103,6 @@
 		<remap from="points"		to="depth/points" />
 	</node>
 		
-	</group>
+</group>
+
 </launch>
