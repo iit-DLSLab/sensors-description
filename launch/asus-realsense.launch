@@ -24,17 +24,17 @@
 			<arg name="enable_infra1"		value="false"/>
 			<arg name="enable_infra2"		value="false"/>
 			<arg name="enable_fisheye"		value="false"/>
-			<arg name="enable_imu"			value="true"/>
-			<arg name="enable_pointcloud"		value="true"/>
+			<arg name="enable_imu"			value="false"/>
+			<arg name="enable_pointcloud"		value="false"/>
 			<arg name="enable_sync"			value="true"/>
 			<arg name="spatial_filter"      	default="true"/>
 			<arg name="spatial_alpha"       	default="0.5"/> <!-- 0.45 -->
-			<arg name="spatial_delta"       	default="4"/>
+			<arg name="spatial_delta"       	default="20"/>
 			<arg name="spatial_iterations"  	default="5"/>
 			<arg name="temporal_filter"		default="true"/>
 			<arg name="temporal_alpha"		default="0.5"/>
 			<arg name="temporal_delta"		default="20"/>
-			<arg name="temporal_persistence"	default="3"/>
+			<arg name="temporal_persistence"	default="7"/>
 			<arg name="holes_filter"		default="false"/>
 			<arg name="holes_filling_mode"		default="1"/>
 			<arg name="decimation_filter"		default="false"/>
@@ -49,7 +49,7 @@
 			<remap from="image_rect"	to="depth/image_rect_raw" />
 			<remap from="points"		to="depth/points" />
 		</node>
-		
+	
 	</group>
 
 </launch>
