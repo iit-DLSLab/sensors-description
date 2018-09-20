@@ -17,7 +17,7 @@
 </group>
 
 
-<group unless="$(arg multirealsense)" ns="realsense/front">
+<group ns="realsense/front">
 	<include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
 		<arg name="serial_no"			value="$(arg serial_no1)"/>
 		<arg name="manager"			value="$(arg manager)_front"/>
@@ -36,11 +36,11 @@
 		<arg name="enable_imu"			value="true"/>
 		<arg name="enable_pointcloud"		value="true"/>
 		<arg name="enable_sync"			value="true"/>
-		<arg name="spatial_filter"    		default="true"/>
+		<arg name="spatial_filter"    		default="false"/>
 		<arg name="spatial_alpha"     		default="0.5"/> <!-- 0.45 -->
-		<arg name="spatial_delta"     		default="8"/>
+		<arg name="spatial_delta"     		default="4"/>
 		<arg name="spatial_iterations"		default="5"/>
-		<arg name="temporal_filter"   		default="true"/>
+		<arg name="temporal_filter"   		default="false"/>
 		<arg name="temporal_alpha"    		default="0.5"/>
 		<arg name="temporal_delta"    		default="20"/>
 		<arg name="temporal_persistence"	default="3"/>
@@ -68,7 +68,7 @@
 		<arg name="json_file_path"		value="$(arg json_file_path)"/>
 		<arg name="depth_width"			value="640"/>
 		<arg name="depth_height"		value="480"/>
-		<arg name="depth_fps"			value="30"/>
+		<arg name="depth_fps"			value="90"/>
 		<arg name="color_width"			value="640"/>
 		<arg name="color_height"		value="480"/>
 		<arg name="color_fps"			value="30"/>
@@ -80,11 +80,11 @@
 		<arg name="enable_imu"			value="true"/>
 		<arg name="enable_pointcloud"		value="true"/>
 		<arg name="enable_sync"			value="true"/>
-		<arg name="spatial_filter"      	default="true"/>
+		<arg name="spatial_filter"      	default="false"/>
 		<arg name="spatial_alpha"       	default="0.5"/> <!-- 0.45 -->
-		<arg name="spatial_delta"       	default="8"/>
+		<arg name="spatial_delta"       	default="4"/>
 		<arg name="spatial_iterations"  	default="5"/>
-		<arg name="temporal_filter"		default="true"/>
+		<arg name="temporal_filter"		default="false"/>
 		<arg name="temporal_alpha"		default="0.5"/>
 		<arg name="temporal_delta"		default="20"/>
 		<arg name="temporal_persistence"	default="3"/>
