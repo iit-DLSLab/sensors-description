@@ -22,11 +22,11 @@
 		<arg name="serial_no"			value="$(arg serial_no1)"/>
 		<arg name="manager"			value="$(arg manager)_front"/>
 		<arg name="json_file_path"		value="$(arg json_file_path)"/>
-		<arg name="depth_width"			value="640"/>
-		<arg name="depth_height"		value="480"/>
+		<arg name="depth_width"			value="1280"/>
+		<arg name="depth_height"		value="720"/>
 		<arg name="depth_fps"			value="90"/>
-		<arg name="color_width"			value="640"/>
-		<arg name="color_height"		value="480"/>
+		<arg name="color_width"			value="1280"/>
+		<arg name="color_height"		value="720"/>
 		<arg name="color_fps"			value="30"/>
 		<arg name="enable_depth"		value="true"/>
 		<arg name="enable_color"		value="false"/>
@@ -50,6 +50,7 @@
 		<arg name="dec_downsample_scale"	default="2"/>
 		<arg name="base_frame_id"		default="front/camera_link"/>
 		<arg name="depth_frame_id"		default="front/camera_depth_frame"/>
+		<arg name="color_optical_frame_id"  default="front_color_optical_frame" />
 		<arg name="depth_optical_frame_id"	default="front/camera_depth_optical_frame"/>
 	</include>
 

@@ -48,6 +48,7 @@
 		<arg name="holes_filling_mode"		default="1"/>
 		<arg name="decimation_filter"		default="false"/>
 		<arg name="dec_downsample_scale"	default="2"/>
+		<arg name="color_optical_frame_id"  default="front_color_optical_frame" />
 		<arg name="base_frame_id"		default="front/camera_link"/>
 		<arg name="depth_frame_id"		default="front/camera_depth_frame"/>
 		<arg name="depth_optical_frame_id"	default="front/camera_depth_optical_frame"/>
