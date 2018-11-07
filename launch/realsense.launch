@@ -8,7 +8,7 @@
 <arg name="bond" default="false" />
 <arg name="respawn" default="$(arg bond)" />
 <arg name="launch_robot_state_publisher" default="false" />
-<arg name="multirealsense" default="false" />
+<arg name="multirealsense" default="true" />
 
 
 <group if = "$(arg launch_robot_state_publisher)">
@@ -22,35 +22,35 @@
 		<arg name="serial_no"			value="$(arg serial_no1)"/>
 		<arg name="manager"			value="$(arg manager)_front"/>
 		<arg name="json_file_path"		value="$(arg json_file_path)"/>
-		<arg name="depth_width"			value="1280"/>
-		<arg name="depth_height"		value="720"/>
+		<arg name="depth_width"			value="848"/>
+		<arg name="depth_height"		value="480"/>
 		<arg name="depth_fps"			value="90"/>
-		<arg name="color_width"			value="1280"/>
-		<arg name="color_height"		value="720"/>
+		<arg name="color_width"			value="848"/>
+		<arg name="color_height"		value="480"/>
 		<arg name="color_fps"			value="30"/>
 		<arg name="enable_depth"		value="true"/>
 		<arg name="enable_color"		value="false"/>
 		<arg name="enable_infra1"		value="false"/>
 		<arg name="enable_infra2"		value="false"/>
 		<arg name="enable_fisheye"		value="false"/>
-		<arg name="enable_imu"			value="true"/>
-		<arg name="enable_pointcloud"		value="true"/>
+		<arg name="enable_imu"			value="false"/>
+		<arg name="enable_pointcloud"		value="false"/>
 		<arg name="enable_sync"			value="true"/>
-		<arg name="spatial_filter"    		default="true"/>
+		<arg name="spatial_filter"    		default="false"/>
 		<arg name="spatial_alpha"     		default="0.5"/> <!-- 0.45 -->
 		<arg name="spatial_delta"     		default="8"/>
 		<arg name="spatial_iterations"		default="5"/>
-		<arg name="temporal_filter"   		default="true"/>
+		<arg name="temporal_filter"   		default="false"/>
 		<arg name="temporal_alpha"    		default="0.5"/>
 		<arg name="temporal_delta"    		default="20"/>
 		<arg name="temporal_persistence"	default="7"/>
 		<arg name="holes_filter"		default="false"/>
 		<arg name="holes_filling_mode"		default="1"/>
-		<arg name="decimation_filter"		default="true"/>
+		<arg name="decimation_filter"		default="false"/>
 		<arg name="dec_downsample_scale"	default="2"/>
 		<arg name="base_frame_id"		default="front/camera_link"/>
 		<arg name="depth_frame_id"		default="front/camera_depth_frame"/>
-		<arg name="color_optical_frame_id"  default="front_color_optical_frame" />
+		<!-- <arg name="color_optical_frame_id"  default="front_color_optical_frame" /> -->
 		<arg name="depth_optical_frame_id"	default="front/camera_depth_optical_frame"/>
 	</include>
 
@@ -67,10 +67,10 @@
 		<arg name="serial_no"			value="$(arg serial_no2)"/>
 		<arg name="manager"			value="$(arg manager)_back"/>
 		<arg name="json_file_path"		value="$(arg json_file_path)"/>
-		<arg name="depth_width"			value="640"/>
+		<arg name="depth_width"			value="848"/>
 		<arg name="depth_height"		value="480"/>
 		<arg name="depth_fps"			value="90"/>
-		<arg name="color_width"			value="640"/>
+		<arg name="color_width"			value="848"/>
 		<arg name="color_height"		value="480"/>
 		<arg name="color_fps"			value="30"/>
 		<arg name="enable_depth"		value="true"/>
@@ -78,20 +78,20 @@
 		<arg name="enable_infra1"		value="false"/>
 		<arg name="enable_infra2"		value="false"/>
 		<arg name="enable_fisheye"		value="false"/>
-		<arg name="enable_imu"			value="true"/>
-		<arg name="enable_pointcloud"		value="true"/>
+		<arg name="enable_imu"			value="false"/>
+		<arg name="enable_pointcloud"		value="false"/>
 		<arg name="enable_sync"			value="true"/>
-		<arg name="spatial_filter"      	default="true"/>
+		<arg name="spatial_filter"      	default="false"/>
 		<arg name="spatial_alpha"       	default="0.5"/> <!-- 0.45 -->
 		<arg name="spatial_delta"       	default="8"/>
 		<arg name="spatial_iterations"  	default="5"/>
-		<arg name="temporal_filter"		default="true"/>
+		<arg name="temporal_filter"		default="false"/>
 		<arg name="temporal_alpha"		default="0.5"/>
 		<arg name="temporal_delta"		default="20"/>
 		<arg name="temporal_persistence"	default="7"/>
 		<arg name="holes_filter"		default="false"/>
 		<arg name="holes_filling_mode"		default="1"/>
-		<arg name="decimation_filter"		default="true"/>
+		<arg name="decimation_filter"		default="false"/>
 		<arg name="dec_downsample_scale"	default="2"/>
 		<arg name="base_frame_id"		default="back/camera_link"/>
 		<arg name="depth_frame_id"		default="back/camera_depth_frame"/>
