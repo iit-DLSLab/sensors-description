@@ -8,7 +8,8 @@
 <arg name="bond" default="false" />
 <arg name="respawn" default="$(arg bond)" />
 <arg name="launch_robot_state_publisher" default="false" />
-<arg name="multirealsense" default="true" />
+<arg name="realsense_front" default="true" />
+<arg name="realsense_back" default="false" />
 
 
 <group if = "$(arg launch_robot_state_publisher)">
@@ -62,7 +63,7 @@
 
 </group>
 
-<group if="$(arg multirealsense)" ns="realsense/back">
+<group if="$(arg realsense_back)" ns="realsense/back">
 	<include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
 		<arg name="serial_no"			value="$(arg serial_no2)"/>
 		<arg name="manager"			value="$(arg manager)_back"/>
