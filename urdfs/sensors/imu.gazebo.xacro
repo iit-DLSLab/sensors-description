@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 	<xacro:macro name="imu_sensor" params="imu_name imu_topic update_rate rate_mean rate_stddev
-		rate_bias_mean rate_bias_stddev accel_mean accel_stddev accel_bias_mean accel_bias_stddev">
+                rate_bias_mean rate_bias_stddev accel_mean accel_stddev accel_bias_mean accel_bias_stddev frame_name">
  		<gazebo>
 			<plugin name="${imu_name}_controller" filename="libgazebo_ros_imu.so">
 				<alwaysOn>true</alwaysOn>
@@ -14,6 +14,7 @@
 				<xyzOffset>0 0 0</xyzOffset>
 				<rpyOffset>0 0 0</rpyOffset>
 				<serviceName>/${imu_name}_imu</serviceName>
+                                <frameName>${frame_name}</frameName>
 			</plugin>	
 		</gazebo>
 		

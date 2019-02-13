@@ -8,7 +8,7 @@
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx425_imu: imu frame -->
         <!-- see Fig. 34 page 61 of Technical manual -->
-	<xacro:macro name="microstrain_3dmgx425_imu" params="parent *origin imu_name imu_topic update_rate">
+        <xacro:macro name="microstrain_3dmgx425_imu" params="parent *origin imu_name imu_topic update_rate frame_name">
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
@@ -64,7 +64,9 @@
 		 	accel_mean="${microstrain_gx425_acc_mean}"
 		 	accel_stddev="${microstrain_gx425_acc_stddev}"
 			accel_bias_mean="0.002"
-		 	accel_bias_stddev="0.001"/>
+                        accel_bias_stddev="0.001"
+                        frame_name="${frame_name}"
+                />
 
 	</xacro:macro>
 
