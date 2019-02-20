@@ -3,6 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 	<xacro:include filename="$(find sensors_description)/urdfs/sensors/imu.gazebo.xacro"/>
+	<xacro:include filename="$(find sensors_description)/urdfs/common.xacro"/>
 
 
         <!-- ============================ IMU KVH 1775 ========================

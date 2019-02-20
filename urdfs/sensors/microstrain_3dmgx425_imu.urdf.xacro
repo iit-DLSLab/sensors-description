@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 	<xacro:include filename="$(find sensors_description)/urdfs/sensors/imu.gazebo.xacro"/>
-<xacro:include filename="$(find sensors_description)/urdfs/common.xacro"/>
+	<xacro:include filename="$(find sensors_description)/urdfs/common.xacro"/>
 
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx425_imu: imu frame -->
@@ -63,8 +63,8 @@
 		 	rate_bias_stddev="${microstrain_gx425_vel_bias_stddev}"
 		 	accel_mean="${microstrain_gx425_acc_mean}"
 		 	accel_stddev="${microstrain_gx425_acc_stddev}"
-			accel_bias_mean="0.002"
-                        accel_bias_stddev="0.001"
+			accel_bias_mean="${microstrain_gx425_acc_bias_mean}"
+                        accel_bias_stddev="${microstrain_gx425_acc_bias_stddev}"
                         frame_name="${frame_name}"
                 />
 
