@@ -1,0 +1,75 @@
+<launch>
+  <arg name="serial_no_camera1"    			default="750612070733"/> 	<!-- Note: Replace with actual serial number -->
+  <arg name="serial_no_camera2"    			default="740112071450"/> 			<!-- Note: Replace with actual serial number -->
+  <arg name="camera1"              			default="camera1"/>		<!-- Note: Replace with camera name -->
+  <arg name="camera2"              			default="camera2"/>		<!-- Note: Replace with camera name -->
+  <arg name="tf_prefix_camera1"         default="$(arg camera1)"/>
+  <arg name="tf_prefix_camera2"         default="$(arg camera2)"/>
+  <arg name="initial_reset"             default="true"/>
+  <arg name="enable_fisheye"      default="false"/>
+  <arg name="enable_gyro"         default="false"/>
+  <arg name="enable_accel"        default="false"/>
+  <arg name="depth_width"         default="640"/>
+  <arg name="depth_height"        default="480"/>
+  <arg name="enable_depth"        default="true"/>
+  <arg name="color_width"         default="640"/>
+  <arg name="color_height"        default="480"/>
+  <arg name="enable_color"        default="true"/>
+  <arg name="enable_infra1"       default="false"/>
+  <arg name="enable_infra2"       default="false"/>
+  <arg name="depth_fps"           default="30"/>
+  <arg name="color_fps"           default="15"/>
+  <arg name="enable_imu"			value="false"/>
+  <arg name="enable_pointcloud" value="true"/>
+
+<group ns="$(arg camera1)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+        <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
+        <arg name="tf_prefix"         		value="$(arg tf_prefix_camera1)"/>
+        <arg name="initial_reset"         value="$(arg initial_reset)"/>
+        <arg name="enable_fisheye"           value="$(arg enable_fisheye)"/>
+        <arg name="enable_gyro"              value="$(arg enable_gyro)"/>
+        <arg name="enable_accel"             value="$(arg enable_accel)"/>
+        <arg name="depth_width"              value="$(arg depth_width)"/>
+        <arg name="depth_height"             value="$(arg depth_height)"/>
+        <arg name="enable_depth"             value="$(arg enable_depth)"/>
+        <arg name="color_width"              value="$(arg color_width)"/>
+        <arg name="color_height"             value="$(arg color_height)"/>
+        <arg name="enable_color"             value="$(arg enable_color)"/>
+        <arg name="enable_infra1"            value="$(arg enable_infra1)"/>
+        <arg name="enable_infra2"            value="$(arg enable_infra2)"/>
+        <arg name="depth_fps"                value="$(arg depth_fps)"/>
+        <arg name="color_fps"                value="$(arg color_fps)"/>
+        <arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/>
+    </include>
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 3.14 trunk camera1_link" />
+
+</group>
+
+<group ns="$(arg camera2)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+        <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
+        <arg name="tf_prefix"		          value="$(arg tf_prefix_camera2)"/>
+        <arg name="initial_reset"         value="$(arg initial_reset)"/>
+        <arg name="enable_fisheye"           value="$(arg enable_fisheye)"/>
+        <arg name="enable_gyro"              value="$(arg enable_gyro)"/>
+        <arg name="enable_accel"             value="$(arg enable_accel)"/>
+        <arg name="depth_width"              value="$(arg depth_width)"/>
+        <arg name="depth_height"             value="$(arg depth_height)"/>
+        <arg name="enable_depth"             value="$(arg enable_depth)"/>
+        <arg name="color_width"              value="$(arg color_width)"/>
+        <arg name="color_height"             value="$(arg color_height)"/>
+        <arg name="enable_color"             value="$(arg enable_color)"/>
+        <arg name="enable_infra1"            value="$(arg enable_infra1)"/>
+        <arg name="enable_infra2"            value="$(arg enable_infra2)"/>
+        <arg name="depth_fps"                value="$(arg depth_fps)"/>
+        <arg name="color_fps"                value="$(arg color_fps)"/>
+        <arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/>
+    </include>
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0 0 0 -3.14 trunk camera2_link" />
+
+</group>
+
+</launch>
