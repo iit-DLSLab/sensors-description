@@ -6,7 +6,7 @@
 
 	<!-- ============================ IMU microstrain ============================== -->
 	<!-- The xacro macro xacro:microstrain_3dmgx325_imu: imu frame -->
-	<xacro:macro name="microstrain_3dmgx325_imu" params="parent *origin imu_name imu_topic update_rate">
+	<xacro:macro name="microstrain_3dmgx325_imu" params="parent *origin imu_name imu_topic frame_name update_rate">
 
 		<!-- Joint -->
 		<joint name="${imu_name}_joint" type="fixed">
@@ -34,7 +34,10 @@
 		</link>
 		
 		<!-- IMU Gazebo plugin definition -->				
-		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
+		<xacro:imu_sensor
+			imu_name="${imu_name}"
+			imu_topic="${imu_topic}"
+			frame_name="${frame_name}"
 		 	update_rate="${update_rate}"
 			rate_mean="${microstrain_gx325_vel_mean}"
 		 	rate_stddev="${microstrain_gx325_vel_stddev}"
