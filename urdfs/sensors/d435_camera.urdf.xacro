@@ -1,9 +1,15 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
-    <xacro:macro name="d435_camera" params="parent *origin">
+    <!--xacro:include filename="$(find sensors_description)/urdfs/sensors/realsense.gazebo.urdf.xacro"/-->
+    
+    <xacro:macro name="d435_camera" params="parent prefix *origin">
 	<xacro:sensor_d435 parent="${parent}">
 	    <xacro:insert_block name="origin" />
 	</xacro:sensor_d435>
+	
+    <!-- Gazebo multisense plugin -->
+    <!--xacro:realsense_sensor prefix="${prefix}"/-->
+
     </xacro:macro>  
 </robot>
