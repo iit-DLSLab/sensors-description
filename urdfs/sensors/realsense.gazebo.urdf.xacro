@@ -3,20 +3,18 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 <xacro:macro name="realsense_sensor" params="prefix">
 
-
-<!--gazebo>
-    <plugin name="realsense_plugin" filename="librealsense_gazebo_plugin.so">
+<gazebo>
+	<!--<plugin name="realsense_plugin" filename="libRealSensePlugin.so"/>-->
+	<plugin name="realsense_plugin" filename="librealsense_gazebo_plugin.so">
 		<prefix>${prefix}</prefix>
 	</plugin>
-</gazebo-->
-<!--<plugin name="realsense_plugin" filename="libRealSensePlugin.so"/>-->
+</gazebo>
 
-
-<!--gazebo reference="${prefix}/${parent}_camera_joint" type="fixed">
+<gazebo reference="${prefix}/${parent}_camera_joint" type="fixed">
 	<pose frame="">0 0 0.015 0 0 0</pose>
-</gazebo-->
+</gazebo>
 
-<!--gazebo reference="${prefix}/camera_link">
+<gazebo reference="${prefix}/camera_link">
 		<inertial>
 			<mass>0.0615752</mass>
 			<inertia>
@@ -80,9 +78,9 @@
 				</contact>
 			</surface>
 		</collision>
-</gazebo-->
+</gazebo>
 
-<!--gazebo reference="${prefix}/camera_fisheye_frame">
+<gazebo reference="${prefix}/camera_fisheye_frame">
 		<sensor name="${prefix}color" type="camera">
 			<pose frame="">0 -0.046 0.004 0 0 0</pose>
 			<camera name="__default__">
@@ -95,9 +93,9 @@
 			<update_rate>60</update_rate>
 			<visualize>1</visualize>
 		</sensor>
-</gazebo-->
+</gazebo>
 
-<!--gazebo reference="${prefix}/camera_left_ir_frame">
+<gazebo reference="${prefix}/camera_left_ir_frame">
 		<sensor name="${prefix}ired1" type="camera">
 			<pose frame="">0 -0.06 0.004 0 0 0</pose>
 			<camera name="__default__">
@@ -110,9 +108,9 @@
 			<update_rate>60</update_rate>
 			<visualize>0</visualize>
 		</sensor>
-</gazebo-->
+</gazebo>
 
-<!--gazebo reference="${prefix}/camera_right_ir_frame">
+<gazebo reference="${prefix}/camera_right_ir_frame">
 		<sensor name="${prefix}ired2" type="camera">
 			<pose frame="">0 0.01 0.004 0 0 0</pose>
 			<camera name="__default__">
@@ -125,9 +123,9 @@
 			<update_rate>60</update_rate>
 			<visualize>0</visualize>
 		</sensor>
-</gazebo-->
+</gazebo>
 
-<!--gazebo reference="${prefix}/camera_depth_frame">
+<gazebo reference="${prefix}/camera_depth_frame">
 		<sensor name="${prefix}depth" type="depth">
 			<pose frame="">0 -0.03 0.004 0 0 0</pose>
 			<camera name="__default__">
@@ -140,7 +138,7 @@
 			<update_rate>60</update_rate>
 			<visualize>0</visualize>
 		</sensor>
-</gazebo-->
+</gazebo>
 
 	
 
