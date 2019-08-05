@@ -117,7 +117,7 @@
 	</joint>
 	<link name="${prefix}/camera_fisheye_optical_frame"/>
 
-	<!-- Gazebo multisense plugin -->
+	<!-- Gazebo realsense plugin -->
 	<xacro:realsense_sensor prefix="${prefix}"/>	
 </xacro:macro>
 </robot>
