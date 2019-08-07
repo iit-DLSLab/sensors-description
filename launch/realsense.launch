@@ -8,7 +8,7 @@
   <arg name="initial_reset"             default="true"/>
   <arg name="depth_width"               value="640"/>
   <arg name="depth_height"              value="480"/>
-  <arg name="depth_fps"                 value="90"/>
+  <arg name="depth_fps"                 value="60"/>
   <arg name="color_width"               value="640"/>
   <arg name="color_height"              value="480"/>
   <arg name="color_fps"                 value="60"/>
@@ -43,7 +43,14 @@
       <arg name="filters"               value="spatial,temporal,hole_filling"/>
     </include>
 
-    <node pkg="tf" type="static_transform_publisher" name="fake_world_to_front" args="0 0 0 0 0 0 world realsense/front_link 100" />
+    <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/front/realsense2_camera_manager" respawn="true">
+      <remap from="camera_info"	to="/realsense/front/depth/camera_info" />
+      <remap from="image_rect"	to="/realsense/front/depth/image_rect_raw" />
+      <remap from="points"		to="/realsense/front/depth/points" />
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
+
 
   </group>
 
@@ -69,7 +76,14 @@
       <arg name="enable_sync"           value="$(arg enable_sync)"/>
     </include>
 
-    <node pkg="tf" type="static_transform_publisher" name="fake_world_to_back" args="0 0 0 0 0 0 world realsense/back_link 100" />
+    <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/back/realsense2_camera_manager" respawn="true">
+      <remap from="camera_info"	to="/realsense/back/depth/camera_info" />
+      <remap from="image_rect"	to="/realsense/back/depth/image_rect_raw" />
+      <remap from="points"		to="/realsense/back/depth/points" />
+    </node>
+
+<node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
+
   </group>
 
 
