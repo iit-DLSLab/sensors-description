@@ -49,7 +49,7 @@
       <remap from="points"		to="/realsense/front/depth/points" />
     </node>
 
-    <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/front/camera_link realsense/realsense/front_link 100" />
 
 
   </group>

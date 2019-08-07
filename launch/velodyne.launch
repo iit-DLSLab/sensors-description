@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <!-- Note the below values do not modify the physical lidar settings. They are just for the ros node -->
+  <include file="$(find velodyne_pointcloud)/launch/VLP16_points.launch" >
+    <arg name="frame_id" value="velodyne" />
+    <arg name="min_range" value="0.05"/>
+    <arg name="max_range" value="100"/>
+    <!-- 20Hz, rpm=1200, resolution=0.05 -->
+    <!-- 10Hz, rpm= 600, resolution=0.007  -->
+    <arg name="rpm" value="1200"/>
+    <arg name="laserscan_resolution" value="0.05"/>
+  </include>
+
+
+</launch>

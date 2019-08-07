@@ -59,6 +59,7 @@ install(DIRECTORY launch/
   PATTERN ".svn" EXCLUDE)
 
 list(APPEND SCRIPTS
+  ./scripts/enableVelodyne.sh
   ./scripts/getVelodyneDiag.sh
   ./scripts/getVelodyneInfo.sh
   ./scripts/getVelodyneSettings.sh
@@ -73,5 +74,12 @@ list(APPEND SCRIPTS
 install(
   FILES ${SCRIPTS}
   DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+  )
+
+#install script inside of package to be able to run from roslaunch
+install(
+  FILES ./scripts/enableVelodyne.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
   )
