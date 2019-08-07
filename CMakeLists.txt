@@ -57,3 +57,21 @@ install(DIRECTORY urdfs/
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
   PATTERN ".svn" EXCLUDE)
+
+list(APPEND SCRIPTS
+  ./scripts/getVelodyneDiag.sh
+  ./scripts/getVelodyneInfo.sh
+  ./scripts/getVelodyneSettings.sh
+  ./scripts/getVelodyneSnapshot.sh
+  ./scripts/setVelodyneFOV.sh
+  ./scripts/setVelodyneLaser.sh
+  ./scripts/setVelodyneReturns.sh
+  ./scripts/setVelodyneRPM.sh
+  ./scripts/startVelodyne.sh
+  )
+
+install(
+  FILES ${SCRIPTS}
+  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+  )
