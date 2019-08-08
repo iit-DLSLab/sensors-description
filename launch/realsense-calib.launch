@@ -6,14 +6,14 @@
   <arg name="tf_prefix_camera1"         default="realsense/$(arg camera1)"/>
   <arg name="tf_prefix_camera2"         default="realsense/$(arg camera2)"/>
   <arg name="initial_reset"             default="true"/>
-  <arg name="depth_width"               value="848"/>
+  <arg name="depth_width"               value="640"/>
   <arg name="depth_height"              value="480"/>
-  <arg name="depth_fps"                 value="90"/>
-  <arg name="color_width"               value="848"/>
+  <arg name="depth_fps"                 value="60"/>
+  <arg name="color_width"               value="640"/>
   <arg name="color_height"              value="480"/>
   <arg name="color_fps"                 value="60"/>
-  <arg name="enable_depth"              value="true"/>
-  <arg name="enable_color"              value="false"/>
+  <arg name="enable_depth"              value="false"/>
+  <arg name="enable_color"              value="true"/>
   <arg name="enable_infra1"             value="false"/>
   <arg name="enable_infra2"             value="false"/>
   <arg name="enable_fisheye"            value="false"/>
@@ -44,12 +44,6 @@
       <arg name="filters"               value="$(arg filters)"/>
     </include>
 
-    <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/front/realsense2_camera_manager" respawn="true">
-      <remap from="camera_info"	to="/realsense/front/depth/camera_info" />
-      <remap from="image_rect"	to="/realsense/front/depth/image_rect_raw" />
-      <remap from="points"		to="/realsense/front/depth/points" />
-    </node>
-
     <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/front/camera_link realsense/realsense/front_link 100" />
 
 
@@ -77,12 +71,6 @@
       <arg name="enable_sync"           value="$(arg enable_sync)"/>
       <arg name="filters"               value="$(arg filters)"/>
     </include>
-
-    <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/back/realsense2_camera_manager" respawn="true">
-      <remap from="camera_info"	to="/realsense/back/depth/camera_info" />
-      <remap from="image_rect"	to="/realsense/back/depth/image_rect_raw" />
-      <remap from="points"		to="/realsense/back/depth/points" />
-    </node>
 
 <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
 
