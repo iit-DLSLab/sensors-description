@@ -32,7 +32,7 @@
   <arg name="enable_gyro"         default="false"/>
   <arg name="enable_accel"        default="false"/>
 
-  <arg name="enable_pointcloud"         default="false"/>
+  <arg name="enable_pointcloud"         default="true"/>
   <arg name="pointcloud_texture_stream" default="RS2_STREAM_DEPTH"/>
   <arg name="pointcloud_texture_index"  default="0"/>
 
