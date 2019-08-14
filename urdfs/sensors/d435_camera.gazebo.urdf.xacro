@@ -7,6 +7,8 @@
 	<!--<plugin name="realsense_plugin" filename="libRealSensePlugin.so"/>-->
 	<plugin name="realsense_plugin" filename="librealsense_gazebo_plugin.so">
 		<prefix>${prefix}</prefix>
+		<pointCloudTopicName>ZZZZZ</pointCloudTopicName>
+		<pointCloudCutoff>0.2</pointCloudCutoff>
 	</plugin>
 </gazebo>
 
@@ -21,6 +23,7 @@
 	    <always_on>1</always_on>
 	    <update_rate>60</update_rate>
 	    <visualize>1</visualize>
+	    <output>points</output>
     </sensor>
 </gazebo>
 
