@@ -1,6 +1,6 @@
 <launch> <!-- frames_queue_size, stream_filter - Depth (1), stream_format_filter=any (0), inter_cam_sync_mode -->
-  <arg name="serial_no_camera1"    			default="831612073144"/>
-  <arg name="serial_no_camera2"    			default="832112073534"/>
+  <arg name="serial_no_camera1"    			default="750612070733"/>  <!-- 831612073144 -->
+  <arg name="serial_no_camera2"    			default="740112071450"/>  <!-- 832112073534 -->
   <arg name="camera1"              			default="realsense/front"/>
   <arg name="camera2"              			default="realsense/back"/>
   <arg name="tf_prefix_camera1"         default="realsense/$(arg camera1)"/>
@@ -24,7 +24,7 @@
   <group ns="$(arg camera1)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
-      <arg name="tf_prefix"         		value="$(arg tf_prefix_camera1)"/>
+      <arg name="tf_prefix"         	value="$(arg tf_prefix_camera1)"/>
       <arg name="initial_reset"         value="$(arg initial_reset)"/>
       <arg name="depth_width"           value="$(arg depth_width)"/>
       <arg name="depth_height"          value="$(arg depth_height)"/>
@@ -49,10 +49,10 @@
 
   </group>
 
-  <group ns="$(arg camera2)">
+  <!--group ns="$(arg camera2)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
-      <arg name="tf_prefix"		          value="$(arg tf_prefix_camera2)"/>
+      <arg name="tf_prefix"		value="$(arg tf_prefix_camera2)"/>
       <arg name="initial_reset"         value="$(arg initial_reset)"/>
       <arg name="depth_width"           value="$(arg depth_width)"/>
       <arg name="depth_height"          value="$(arg depth_height)"/>
@@ -74,7 +74,7 @@
 
 <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
 
-  </group>
+  </group-->
 
 
 

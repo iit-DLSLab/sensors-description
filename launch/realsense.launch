@@ -1,24 +1,26 @@
-<launch> <!-- frames_queue_size, stream_filter - Depth (1), stream_format_filter=any (0), inter_cam_sync_mode -->
-  <arg name="serial_no_camera1"    			default="831612073144"/>
-  <arg name="serial_no_camera2"    			default="832112073534"/>
-  <arg name="camera1"              			default="realsense/front"/>
-  <arg name="camera2"              			default="realsense/back"/>
+<?xml version="1.0" ?>
+<launch>
+
+  <arg name="serial_no_camera1"    	default=""/>
+  <arg name="serial_no_camera2"    	default=""/>
+  <arg name="camera1"              	default="realsense/front"/>
+  <arg name="camera2"              	default="realsense/back"/>
   <arg name="tf_prefix_camera1"         default="realsense/$(arg camera1)"/>
   <arg name="tf_prefix_camera2"         default="realsense/$(arg camera2)"/>
   <arg name="initial_reset"             default="true"/>
-  <arg name="depth_width"               value="848"/>
-  <arg name="depth_height"              value="480"/>
-  <arg name="depth_fps"                 value="90"/>
-  <arg name="color_width"               value="848"/>
-  <arg name="color_height"              value="480"/>
-  <arg name="color_fps"                 value="60"/>
-  <arg name="enable_depth"              value="true"/>
-  <arg name="enable_color"              value="false"/>
-  <arg name="enable_infra1"             value="false"/>
-  <arg name="enable_infra2"             value="false"/>
-  <arg name="enable_fisheye"            value="false"/>
-  <arg name="enable_sync"               value="false"/>
-  <arg name="filters"                   value=""/>
+  <arg name="depth_width"               default="848"/>
+  <arg name="depth_height"              default="480"/>
+  <arg name="depth_fps"                 default="90"/>
+  <arg name="color_width"               default="640"/>
+  <arg name="color_height"              default="480"/>
+  <arg name="color_fps"                 default="30"/>
+  <arg name="enable_depth"              default="true"/>
+  <arg name="enable_color"              default="false"/>
+  <arg name="enable_infra1"             default="false"/>
+  <arg name="enable_infra2"             default="false"/>
+  <arg name="enable_fisheye"            default="false"/>
+  <arg name="enable_sync"               default="false"/>
+  <arg name="filters"                   default=""/>
   <arg name="enable_pointcloud"         default="true"/>
   <arg name="pointcloud_texture_stream" default="RS2_STREAM_DEPTH"/>
   <arg name="pointcloud_texture_index"  default="0"/>
@@ -26,7 +28,7 @@
   <group ns="$(arg camera1)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
-      <arg name="tf_prefix"         		value="$(arg tf_prefix_camera1)"/>
+      <arg name="tf_prefix"         	value="$(arg tf_prefix_camera1)"/>
       <arg name="initial_reset"         value="$(arg initial_reset)"/>
       <arg name="depth_width"           value="$(arg depth_width)"/>
       <arg name="depth_height"          value="$(arg depth_height)"/>
@@ -44,8 +46,8 @@
       <arg name="enable_pointcloud"     value="$(arg enable_pointcloud)"/>
       <arg name="enable_sync"           value="$(arg enable_sync)"/>
       <arg name="filters"               value="$(arg filters)"/>
-      <arg name="pointcloud_texture_stream" default="$(arg pointcloud_texture_stream)"/>
-      <arg name="pointcloud_texture_index"  default="$(arg pointcloud_texture_index)"/>
+      <arg name="pointcloud_texture_stream" value="$(arg pointcloud_texture_stream)"/>
+      <arg name="pointcloud_texture_index"  value="$(arg pointcloud_texture_index)"/>
     </include>
 
     <!--node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/front/realsense2_camera_manager" respawn="true">
@@ -62,7 +64,7 @@
   <group ns="$(arg camera2)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
-      <arg name="tf_prefix"		          value="$(arg tf_prefix_camera2)"/>
+      <arg name="tf_prefix"		value="$(arg tf_prefix_camera2)"/>
       <arg name="initial_reset"         value="$(arg initial_reset)"/>
       <arg name="depth_width"           value="$(arg depth_width)"/>
       <arg name="depth_height"          value="$(arg depth_height)"/>
@@ -80,8 +82,8 @@
       <arg name="enable_pointcloud"     value="$(arg enable_pointcloud)"/>
       <arg name="enable_sync"           value="$(arg enable_sync)"/>
       <arg name="filters"               value="$(arg filters)"/>
-      <arg name="pointcloud_texture_stream" default="$(arg pointcloud_texture_stream)"/>
-      <arg name="pointcloud_texture_index"  default="$(arg pointcloud_texture_index)"/>
+      <arg name="pointcloud_texture_stream" value="$(arg pointcloud_texture_stream)"/>
+      <arg name="pointcloud_texture_index"  value="$(arg pointcloud_texture_index)"/>
     </include>
 
     <!--node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/back/realsense2_camera_manager" respawn="true">
