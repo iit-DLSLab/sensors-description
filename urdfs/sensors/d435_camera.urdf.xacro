@@ -130,6 +130,7 @@
 
 	<!-- Gazebo realsense plugin -->
 	<xacro:d435_gazebo_camera parent="${parent}" prefix="${prefix}"/>
+	<xacro:asus_xtion_depth_sensor prefix="${prefix}"/>
 
 </xacro:macro>
 </robot>
