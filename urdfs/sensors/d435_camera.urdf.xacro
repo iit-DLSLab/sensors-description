@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-<xacro:include filename="$(find sensors_description)/urdfs/sensors/d435_camera.gazebo.urdf.xacro"/>
+<xacro:include filename="$(find sensors_description)/urdfs/sensors/d435_camera_openni.gazebo.urdf.xacro"/>
 
 <xacro:property name="M_PI" value="3.1415926535897931" />
 
