@@ -15,7 +15,7 @@
          average of these three. For completeness, we include the three exact
          axes as well. -->
 
-	<xacro:macro name="kvh_1775_imu" params="parent *origin imu_name imu_topic update_rate">
+	<xacro:macro name="kvh_1775_imu" params="parent *origin imu_name imu_topic frame_name update_rate">
                 <!-- Joint connecting the mount point of the IMU to the robot -->
                 <joint name="${imu_name}_mount_joint" type="fixed">
 			<xacro:insert_block name="origin"/>
@@ -142,7 +142,10 @@
 
 
 		<!-- IMU definition -->
-		<xacro:imu_sensor imu_name="${imu_name}" imu_topic="${imu_topic}"
+		<xacro:imu_sensor
+			imu_name="${imu_name}"
+			imu_topic="${imu_topic}"
+			frame_name="${frame_name}"
 		 	update_rate="${update_rate}"
 			rate_mean="${kvh_1775_vel_mean}"
 		 	rate_stddev="${kvh_1775_vel_stddev}"

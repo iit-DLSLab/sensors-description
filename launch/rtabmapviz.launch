@@ -1,0 +1,30 @@
+<launch><group ns="rtabmap">
+
+<arg name="gui_cfg"                 default="~/.ros/rtabmap_gui.ini" />
+
+<!-- Visualisation RTAB-Map -->
+<node pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(arg gui_cfg)" output="screen">
+  <param name="subscribe_depth"      type="bool"    value="false"/>
+  <param name="subscribe_rgbd"       type="bool"    value="false"/>
+  <param name="subscribe_stereo"     type="bool"    value="false"/>
+  <param name="subscribe_scan"       type="bool"    value="false"/>
+  <param name="subscribe_scan_cloud" type="bool"    value="true"/>
+  <param name="subscribe_odom_info"  type="bool"    value="true"/>
+  <param name="approx_sync" type="bool" value="false"/>
+
+  <param name="frame_id"             type="string"  value="realsense/front/camera_link"/>
+  <param name="odom_frame_id"        type="string"  value="base_link"/>
+
+  <!-- remap from="rgb/image"       to="/realsense/front/color/camera_info"/ -->
+  <!-- remap from="depth/image"     to="/realsense/front/depth/image_rect_raw"/ -->
+  <!-- remap from="rgb/camera_info" to="/realsense/front/color/camera_info"/ -->
+  <remap from="scan_cloud"      to="/velodyne_points"/>
+  <remap from="odom"            to="/rtabmap/odom"/>
+</node>
+
+
+
+
+
+
+</group></launch>

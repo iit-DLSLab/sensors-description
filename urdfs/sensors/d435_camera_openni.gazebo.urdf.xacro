@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<xacro:macro name="asus_xtion_depth_sensor" params="prefix">
+	<gazebo reference="${prefix}/camera_depth_frame">
+		<sensor type="depth" name="${prefix}/camera_depth_frame_depth_sensor">
+			<always_on>true</always_on>
+			<update_rate>30.0</update_rate>
+			<camera name="__default__">
+				<horizontal_fov>1.047</horizontal_fov>
+				<image><format>L8</format><width>640</width><height>480</height></image>
+				<clip><near>0.1</near><far>100</far>
+				</clip>
+			</camera>
+			<plugin name="${prefix}/camera_depth_frame_controller" filename="libgazebo_ros_openni_kinect.so">
+				<baseline>0.2</baseline>
+				<alwaysOn>true</alwaysOn>
+				<updateRate>0</updateRate>
+				<cameraName>/${prefix}/camera</cameraName>
+				<imageTopicName>/${prefix}/camera/rgb/image_raw</imageTopicName>
+				<cameraInfoTopicName>/${prefix}/camera/rgb/camera_info</cameraInfoTopicName>
+				<depthImageTopicName>/${prefix}/camera/depth/image_raw</depthImageTopicName>
+				<depthImageCameraInfoTopicName>/${prefix}/camera/depth/camera_info</depthImageCameraInfoTopicName>
+				<pointCloudTopicName>/${prefix}/camera/depth/points</pointCloudTopicName>
+				<frameName>${prefix}/camera_depth_optical_frame</frameName>
+				<pointCloudCutoff>0.1</pointCloudCutoff>
+				<distortionK1>0.00000001</distortionK1>
+				<distortionK2>0.00000001</distortionK2>
+				<distortionK3>0.00000001</distortionK3>
+				<distortionT1>0.00000001</distortionT1>
+				<distortionT2>0.00000001</distortionT2>
+				<CxPrime>0</CxPrime>
+				<Cx>0</Cx>
+				<Cy>0</Cy>
+				<focalLength>0</focalLength>
+				<hackBaseline>0</hackBaseline>
+			</plugin>
+		</sensor>
+		<material value="Gazebo/Red"/>
+	</gazebo>
+</xacro:macro>
+
+
+<xacro:macro name="asus_xtion_rgb_sensor" params="prefix">
+	<gazebo reference="${prefix}/camera_depth_frame">
+		<sensor type="depth" name="${prefix}/camera_depth_frame_depth_sensor">
+			<always_on>true</always_on>
+			<update_rate>30.0</update_rate>
+			<camera name="__default__">
+				<horizontal_fov>1.047</horizontal_fov>
+				<image><format>R8G8B8</format><width>640</width><height>480</height></image>
+				<clip><near>0.1</near><far>100</far>
+				</clip>
+			</camera>
+			<plugin name="${prefix}/camera_depth_frame_controller" filename="libgazebo_ros_openni_kinect.so">
+				<baseline>0.2</baseline>
+				<alwaysOn>true</alwaysOn>
+				<updateRate>0</updateRate>
+				<cameraName>/${prefix}/camera</cameraName>
+				<imageTopicName>/${prefix}/camera/rgb/image_raw</imageTopicName>
+				<cameraInfoTopicName>/${prefix}/camera/rgb/camera_info</cameraInfoTopicName>
+				<depthImageTopicName>/${prefix}/camera/depth/image_raw</depthImageTopicName>
+				<depthImageCameraInfoTopicName>/${prefix}/camera/depth/camera_info</depthImageCameraInfoTopicName>
+				<pointCloudTopicName>/${prefix}/camera/depth/points</pointCloudTopicName>
+				<frameName>${prefix}/camera_depth_optical_frame</frameName>
+				<pointCloudCutoff>0.1</pointCloudCutoff>
+				<distortionK1>0.00000001</distortionK1>
+				<distortionK2>0.00000001</distortionK2>
+				<distortionK3>0.00000001</distortionK3>
+				<distortionT1>0.00000001</distortionT1>
+				<distortionT2>0.00000001</distortionT2>
+				<CxPrime>0</CxPrime>
+				<Cx>0</Cx>
+				<Cy>0</Cy>
+				<focalLength>0</focalLength>
+				<hackBaseline>0</hackBaseline>
+			</plugin>
+		</sensor>
+		<material value="Gazebo/Red"/>
+	</gazebo>
+</xacro:macro>
+
+</robot>
