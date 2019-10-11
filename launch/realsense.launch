@@ -59,7 +59,7 @@
 
   </group>
 
-  <group ns="$(arg camera2)">
+  <group if="false" ns="$(arg camera2)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
       <arg name="tf_prefix"		value="$(arg tf_prefix_camera2)"/>
