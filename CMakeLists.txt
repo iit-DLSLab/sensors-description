@@ -37,14 +37,14 @@ link_directories(
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 ## Declare a cpp library
-add_library(MultiSenseSLPlugin src/MultiSenseSLPlugin.cpp)
+#add_library(MultiSenseSLPlugin src/MultiSenseSLPlugin.cpp)
 #target_link_libraries(MultiSenseSLPlugin ${catkin_LIBRARIES})
 
-install(TARGETS MultiSenseSLPlugin
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-  )
+#install(TARGETS MultiSenseSLPlugin
+#  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#  )
 
 install(DIRECTORY meshes/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/meshes
@@ -53,3 +53,33 @@ install(DIRECTORY meshes/
 install(DIRECTORY urdfs/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdfs
   PATTERN ".svn" EXCLUDE)
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  PATTERN ".svn" EXCLUDE)
+
+list(APPEND SCRIPTS
+  ./scripts/enableVelodyne.sh
+  ./scripts/getVelodyneDiag.sh
+  ./scripts/getVelodyneInfo.sh
+  ./scripts/getVelodyneSettings.sh
+  ./scripts/getVelodyneSnapshot.sh
+  ./scripts/setVelodyneFOV.sh
+  ./scripts/setVelodyneLaser.sh
+  ./scripts/setVelodyneReturns.sh
+  ./scripts/setVelodyneRPM.sh
+  ./scripts/startVelodyne.sh
+  )
+
+install(
+  FILES ${SCRIPTS}
+  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+  )
+
+#install script inside of package to be able to run from roslaunch
+install(
+  FILES ./scripts/enableVelodyne.sh
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+  )

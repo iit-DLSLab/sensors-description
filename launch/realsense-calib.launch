@@ -1,0 +1,81 @@
+<launch> <!-- frames_queue_size, stream_filter - Depth (1), stream_format_filter=any (0), inter_cam_sync_mode -->
+  <arg name="serial_no_camera1"    			default="750612070733"/>  <!-- 831612073144 -->
+  <arg name="serial_no_camera2"    			default="740112071450"/>  <!-- 832112073534 -->
+  <arg name="camera1"              			default="realsense/front"/>
+  <arg name="camera2"              			default="realsense/back"/>
+  <arg name="tf_prefix_camera1"         default="realsense/$(arg camera1)"/>
+  <arg name="tf_prefix_camera2"         default="realsense/$(arg camera2)"/>
+  <arg name="initial_reset"             default="true"/>
+  <arg name="depth_width"               value="640"/>
+  <arg name="depth_height"              value="480"/>
+  <arg name="depth_fps"                 value="60"/>
+  <arg name="color_width"               value="640"/>
+  <arg name="color_height"              value="480"/>
+  <arg name="color_fps"                 value="60"/>
+  <arg name="enable_depth"              value="false"/>
+  <arg name="enable_color"              value="true"/>
+  <arg name="enable_infra1"             value="false"/>
+  <arg name="enable_infra2"             value="false"/>
+  <arg name="enable_fisheye"            value="false"/>
+  <arg name="enable_pointcloud"         value="false"/>
+  <arg name="enable_sync"               value="false"/>
+  <arg name="filters"                   value=""/>
+
+  <group ns="$(arg camera1)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
+      <arg name="tf_prefix"         	value="$(arg tf_prefix_camera1)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="depth_width"           value="$(arg depth_width)"/>
+      <arg name="depth_height"          value="$(arg depth_height)"/>
+      <arg name="depth_fps"             value="$(arg depth_fps)"/>
+      <arg name="color_width"           value="$(arg color_width)"/>
+      <arg name="color_height"          value="$(arg color_height)"/>
+      <arg name="color_fps"             value="$(arg color_fps)"/>
+      <arg name="enable_depth"          value="$(arg enable_depth)"/>
+      <arg name="enable_color"          value="$(arg enable_color)"/>
+      <arg name="enable_infra1"         value="$(arg enable_infra1)"/>
+      <arg name="enable_infra2"         value="$(arg enable_infra2)"/>
+      <arg name="enable_fisheye"        value="$(arg enable_fisheye)"/>
+      <arg name="enable_gyro"           value="false"/>
+      <arg name="enable_accel"          value="false"/>
+      <arg name="enable_pointcloud"     value="$(arg enable_pointcloud)"/>
+      <arg name="enable_sync"           value="$(arg enable_sync)"/>
+      <arg name="filters"               value="$(arg filters)"/>
+    </include>
+
+    <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/front/camera_link realsense/realsense/front_link 100" />
+
+
+  </group>
+
+  <!--group ns="$(arg camera2)">
+    <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
+      <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
+      <arg name="tf_prefix"		value="$(arg tf_prefix_camera2)"/>
+      <arg name="initial_reset"         value="$(arg initial_reset)"/>
+      <arg name="depth_width"           value="$(arg depth_width)"/>
+      <arg name="depth_height"          value="$(arg depth_height)"/>
+      <arg name="depth_fps"             value="$(arg depth_fps)"/>
+      <arg name="color_width"           value="$(arg color_width)"/>
+      <arg name="color_height"          value="$(arg color_height)"/>
+      <arg name="color_fps"             value="$(arg color_fps)"/>
+      <arg name="enable_depth"          value="$(arg enable_depth)"/>
+      <arg name="enable_color"          value="$(arg enable_color)"/>
+      <arg name="enable_infra1"         value="$(arg enable_infra1)"/>
+      <arg name="enable_infra2"         value="$(arg enable_infra2)"/>
+      <arg name="enable_fisheye"        value="$(arg enable_fisheye)"/>
+      <arg name="enable_gyro"           value="false"/>
+      <arg name="enable_accel"          value="false"/>
+      <arg name="enable_pointcloud"     value="$(arg enable_pointcloud)"/>
+      <arg name="enable_sync"           value="$(arg enable_sync)"/>
+      <arg name="filters"               value="$(arg filters)"/>
+    </include>
+
+<node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
+
+  </group-->
+
+
+
+</launch>
