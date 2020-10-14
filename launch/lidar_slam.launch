@@ -1,0 +1,195 @@
+<?xml version="1.0" ?>
+<!-- modified-->
+<launch>
+
+
+
+    <param name="/use_sim_time" value="false" />
+  	<arg name="hecto" default="false" />
+    <arg name="lego_loam" default="false" />
+    <arg name="lidar_topic" default="/velodyne_points_filtered"/>
+ 	   <arg name="filter" default="false" />
+
+<!-- ********************************************************************* -->
+
+			<!-- 3D Filter -->
+<group if="$(arg filter)">
+ <node pkg="nodelet" type="nodelet" name="pcl_manager" args="manager" output="screen" />
+
+  <!-- Run a CropBox filter to clean NaNs -->
+  <node pkg="nodelet" type="nodelet" name="radiusremoval" args="load pcl/CropBox pcl_manager" output="screen">
+    <remap from="~input" to="/velodyne_points" />
+    <remap from="~output" to="/velodyne_points_filtered" />
+    <rosparam>
+      input_frame: velodyne
+      output_frame: velodyne
+      min_x: -1
+      max_x: 1
+      min_y: -1
+      max_y: 1
+      min_z: -0.3
+      max_z: 1.5
+      negative: true
+    </rosparam>
+  </node>
+
+
+</group>
+
+
+<!-- ********************************************************************* -->
+
+			<!-- 3D SLAM: LeGo Loam -->
+<group if="$(arg lego_loam)">
+    <!--- TF -->
+
+
+ <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="-0.349709 0.0 0.277910 1.570795 0 1.270795 /world /camera_init 10" />
+
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_camera" args="0 0 0 -1.570795 -1.570795 0       /camera /base_link2   10" />
+ 
+
+    <arg name="rosbag"  default=""/>
+    <arg name="imu_topic" default="/hyqreal/imu"/>
+
+
+    <rosparam file="$(find lego_loam_bor)/config/loam_config.yaml" command="load"/>
+
+    <node pkg="lego_loam_bor" type="lego_loam_bor"    name="lego_loam_bor"    output="screen" >
+       <remap from="/lidar_points" to="$(arg lidar_topic)"/>
+       <remap from="/imu/data" to="$(arg imu_topic)"/>
+       <param name="rosbag"      value="$(arg rosbag)" type="string" />
+       <param name="imu_topic"   value="$(arg imu_topic)" type="string" />
+       <param name="lidar_topic" value="$(arg lidar_topic)" type="string" />
+    </node>
+
+
+
+
+<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+		<param name="resolution" value="0.05" />
+
+		
+		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+		<param name="frame_id" type="string" value="world" />
+		
+		<!-- maximum range to integrate (speedup!) -->
+		<param name= "base_frame_id" value="base_link"/>
+		<param name= "sensor_model/max_range" value="20"/>
+		<!-- ground plane should not be detected <param name ="pointcloud_min_z" type = "double" value= "0.05"/> -->
+
+
+		<!-- data source to integrate (PointCloud2) -->
+		<remap from="cloud_in" to="/laser_cloud_surround" />	
+	</node>
+
+</group>
+
+<!-- ********************************************************************* -->
+		<!-- 2D SLAM: Hector mapping  it provides map->odom transformation  -->
+<group if="$(arg hecto)">
+ 
+	  <node pkg="hector_mapping" type="hector_mapping" name="hector_mapping" output="screen">
+    
+    <!-- Frame names--> 
+    <param name="map_frame" value="world" /> 	
+    <param name="base_frame" value="trunk" /><!-- trunk -->
+    <param name="odom_frame" value="trunk" /><!-- trunk -->
+    
+    <!-- Tf use -->
+    <param name="use_tf_pose_start_estimate" value="false"/>
+    <param name="use_tf_scan_transformation" value="true"/> <!-- true -->
+    <param name="pub_map_odom_transform" value="true"/>
+ 
+    
+    <!-- Map size / start point -->
+    <param name="map_resolution" value="0.030"/>
+    <param name="map_size" value="1024"/>
+    <param name="map_start_x" value="0.5"/>
+    <param name="map_start_y" value="0.5" />
+    <param name="map_multi_res_levels" value="2" />
+    
+    <!-- Map update parameters -->
+    <param name="update_factor_free" value="0.4"/>
+    <param name="update_factor_occupied" value="0.9" />    
+    <param name="map_update_distance_thresh" value="0.4"/> 
+    <param name="map_update_angle_thresh" value="0.06" />
+
+    <param name="laser_z_min_value" value = "-1.0" />
+    <param name="laser_z_max_value" value = "1.0" />
+    <param name="map_pub_period" value = "0.5" />
+   <!-- Advertising config --> 
+    <param name="advertise_map_service" value="true"/>
+    
+    <param name="scan_subscriber_queue_size" value="5"/>
+    <param name="scan_topic" value="laser"/>
+    
+    <!-- Debug parameters >
+    
+      <param name="output_timing" value="false"/>
+      <param name="pub_drawings" value="true"/>
+      <param name="pub_debug_output" value="true"/-->
+    
+    <param name="tf_map_scanmatch_transform_frame_name" value="scanmatcher_frame" />
+  </node>
+		
+	
+  	<include file="$(find hector_geotiff)/launch/geotiff_mapper.launch">
+    		<arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+    		<arg name="map_file_path" value="$(find hector_geotiff)/maps"/>
+  		<arg name="target_frame_name" value="/world" />
+		
+  	</include>
+
+
+	           
+
+<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+		<param name="resolution" value="0.05" />
+
+		
+		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
+		<param name="frame_id" type="string" value="world" />
+		
+		<!-- maximum range to integrate (speedup!) -->
+		
+		<param name= "sensor_model/max_range" value="20"/>
+		<!-- ground plane should not be detected <param name ="pointcloud_min_z" type = "double" value= "0.05"/> -->
+
+		<!-- data source to integrate (PointCloud2) -->
+		<remap from="cloud_in" to="$(arg lidar_topic)" />	
+	</node>
+
+
+  	<node pkg="tf" type="static_transform_publisher" name="velodyne2laser" args="0 0 0 0 0.3 0 /velodyne /laser 10"/>
+
+	<!-- pointcloud_to_laserscan-->
+	<node pkg= "pointcloud_to_laserscan" type= "pointcloud_to_laserscan_node" name= "pointcloud_to_laserscan">
+		<remap from="cloud_in" to="$(arg lidar_topic)"/>
+		<remap from="scan" to="/laser"/>
+		<param name="target_frame" type="string" value = "laser"/>
+
+       <rosparam>
+            transform_tolerance: 0.01
+            min_height: 0.0
+            max_height: 0.5
+
+            angle_min: -3.14 
+            angle_max:  3.14
+            angle_increment: 0.0087 <!-- M_PI/360.0 -->
+            scan_time: 0.3333
+            range_min: 1
+            range_max: 15
+            use_inf: true
+            inf_epsilon: 1.0
+            concurrency_level: 1
+        </rosparam>
+	</node>
+
+
+  	
+</group>
+
+</launch>
+
+
