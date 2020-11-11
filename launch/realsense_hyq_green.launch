@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <launch>
 
-    <arg name="serial_no_camera2"      default="750612070733"/>
-    <arg name="serial_no_camera1"      default="740112071450"/>
+    <arg name="serial_no_camera2"      default="740112071450"/>
+    <arg name="serial_no_camera1"      default="750612070733"/>
 
     <include file="$(find sensors_description)/launch/realsense.launch">
         <arg name="serial_no_camera1"   value="$(arg serial_no_camera1)"/>
