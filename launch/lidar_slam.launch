@@ -6,8 +6,8 @@
 
     <param name="/use_sim_time" value="false" />
   	<arg name="hecto" default="false" />
-    <arg name="lego_loam" default="false" />
-    <arg name="lidar_topic" default="/velodyne_points_filtered"/>
+    <arg name="lego_loam" default="true" />
+    <arg name="lidar_topic" default="/velodyne_points"/>
  	   <arg name="filter" default="false" />
 
 <!-- ********************************************************************* -->
