@@ -59,7 +59,7 @@
 
   </group>
 
-  <group ns="$(arg camera2)">
+  <!--group ns="$(arg camera2)">
     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
       <arg name="serial_no"             value="$(arg serial_no_camera2)"/>
       <arg name="tf_prefix"		value="$(arg tf_prefix_camera2)"/>
@@ -84,15 +84,15 @@
       <arg name="pointcloud_texture_index"  value="$(arg pointcloud_texture_index)"/>
     </include>
 
-    <!--node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/back/realsense2_camera_manager" respawn="true">
+    <node pkg="nodelet" type="nodelet" name="points_xyz_sw_registered" args="load depth_image_proc/point_cloud_xyz /realsense/back/realsense2_camera_manager" respawn="true">
       <remap from="camera_info"	to="/realsense/back/depth/camera_info" />
       <remap from="image_rect"	to="/realsense/back/depth/image_rect_raw" />
       <remap from="points"		to="/realsense/back/depth/points" />
-    </node-->
+    </node>
 
 <node pkg="tf" type="static_transform_publisher" name="fake" args="0 0 0 0 0 0 realsense/back/camera_link realsense/realsense/back_link 100" />
 
-  </group>
+  </group-->
 
 
 
