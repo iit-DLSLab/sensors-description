@@ -1,0 +1,14 @@
+<launch> <!-- frames_queue_size, stream_filter - Depth (1), stream_format_filter=any (0), inter_cam_sync_mode -->
+  <arg name="serial_no_camera1"    			default="831612073144"/>
+  <arg name="serial_no_camera2"    			default="832112073534"/>
+
+ <!--include file="$(find sensors_description)/launch/realsense.launch">
+     <arg name="serial_no_camera1"             value="$(arg serial_no_camera1)"/>
+    <arg name="serial_no_camera2"             value="$(arg serial_no_camera2)"/>
+</include-->
+
+<include file="$(find realsense2_camera)/launch/rs_camera_color.launch">
+  <arg name="serial_no"             value="$(arg serial_no_camera1)"/>
+</include>
+
+</launch>
