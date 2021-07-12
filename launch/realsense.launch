@@ -6,9 +6,9 @@
   <arg name="tf_prefix_camera1"         default="realsense/$(arg camera1)"/>
   <arg name="tf_prefix_camera2"         default="realsense/$(arg camera2)"/>
   <arg name="initial_reset"             default="true"/>
-  <arg name="depth_width"               default="848"/>
+  <arg name="depth_width"               default="640"/>
   <arg name="depth_height"              default="480"/>
-  <arg name="depth_fps"                 default="90"/>
+  <arg name="depth_fps"                 default="30"/>
   <arg name="color_width"               default="640"/>
   <arg name="color_height"              default="480"/>
   <arg name="color_fps"                 default="30"/>
