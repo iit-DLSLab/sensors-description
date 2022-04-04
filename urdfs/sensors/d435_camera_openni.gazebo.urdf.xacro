@@ -9,7 +9,7 @@
 			<update_rate>30.0</update_rate>
 			<camera name="__default__">
 				<horizontal_fov>1.482</horizontal_fov>
-				<image><format>L8</format><width>640</width><height>480</height></image>
+				<image><format>L8</format><width>1280</width><height>720</height></image>
 				<clip><near>0.1</near><far>100</far>
 				</clip>
 			</camera>
@@ -49,7 +49,7 @@
 			<update_rate>30.0</update_rate>
 			<camera name="__default__">
 				<horizontal_fov>1.482</horizontal_fov>
-				<image><format>R8G8B8</format><width>640</width><height>480</height></image>
+				<image><format>R8G8B8</format><width>1280</width><height>720</height></image>
 				<clip><near>0.1</near><far>100</far>
 				</clip>
 			</camera>
