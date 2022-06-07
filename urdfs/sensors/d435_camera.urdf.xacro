@@ -70,7 +70,7 @@
 
 	<!-- camera depth joints and links -->
 	<joint name="${prefix}/camera_depth_joint" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<origin xyz="0.01 0 0" rpy="0 0 0"/>
 		<parent link="${prefix}/camera_link"/>
 		<child link="${prefix}/camera_depth_frame" />
 	</joint>
@@ -115,7 +115,7 @@
 
 	<!-- camera color joints and links -->
 	<joint name="${prefix}/camera_color_joint" type="fixed">
-		<origin xyz="0 ${d435_cam_depth_to_color_offset} 0" rpy="0 0 0" />
+		<origin xyz="0.01 ${d435_cam_depth_to_color_offset} 0" rpy="0 0 0" />
 		<parent link="${prefix}/camera_depth_frame" />
 		<child link="${prefix}/camera_color_frame" />
 	</joint>
