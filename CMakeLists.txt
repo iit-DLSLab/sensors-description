@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 project(sensors_description)
 
+add_compile_options("-std=c++2a")
+
 # ==============================================================================
 # Calculate correct project version number
 # ==============================================================================
@@ -66,8 +68,9 @@ list(APPEND SCRIPTS
 install(
   FILES ${SCRIPTS}
   DESTINATION /usr/lib/${PROJECT_NAME}
-  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
   COMPONENT   sensors_desc
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+
 )
 
 set(CPACK_PACKAGE_VERSION_MAJOR                 ${PROJECT_VERSION_MAJOR})
@@ -84,5 +87,8 @@ set(CPACK_DEB_COMPONENT_INSTALL                 ON)
 set(CPACK_DEBIAN_SENSORS_DESC_PACKAGE_NAME      "sensors-description" CACHE INTERNAL "")
 set(CPACK_DEBIAN_SENSORS_DESC_FILE_NAME         "sensors-description-${PROJECT_VERSION}.deb" CACHE INTERNAL "")
 set(CPACK_DEBIAN_SENSORS_DESC_PACKAGE_DEPENDS   "" CACHE INTERNAL "")
+
+get_cmake_property(CPACK_COMPONENTS_ALL COMPONENTS)
+list(REMOVE_ITEM CPACK_COMPONENTS_ALL "Unspecified")
 
 include(CPack)
