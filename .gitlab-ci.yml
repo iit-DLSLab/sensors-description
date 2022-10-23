@@ -32,5 +32,4 @@ deploy:
     - curl -X POST -F token=$DLS_DISTRO_TOKEN -F ref=$CI_COMMIT_REF_NAME -F variables[SUBMODULE_COMMIT_MSG]="$CI_COMMIT_MESSAGE" -F variables[SUBMODULE_COMMIT_SHA]=$CI_COMMIT_SHA -F variables[SUBMODULE]=$CI_PROJECT_NAME https://gitlab.advr.iit.it/api/v4/projects/43/trigger/pipeline
   only:
   - master
-  - develop
-
+  - dls2
