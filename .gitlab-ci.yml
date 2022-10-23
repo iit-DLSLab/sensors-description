@@ -54,6 +54,12 @@ deploy:
     - echo $CI_JOB_ID > CI_JOB_ID
     - source /root/dls_gitlab_ci/make-json.bash token=$DLSUSER_TOKEN project=$CI_PROJECT_ID branch=$CI_COMMIT_BRANCH job=$CI_JOB_ID tag=latest release=$(lsb_release -sc) > out.json
     - 'curl -X post -H "Content-Type: application/json" -d @out.json http://server-ubuntu18:9000/hooks/deploy-apt'
+  dependencies:
+    - build
+  artifacts:
+    paths:
+      - build/*deb
+    expire_in: 1 week
   only:
     - master
     - dls2
