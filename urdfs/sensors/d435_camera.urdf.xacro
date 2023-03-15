@@ -53,13 +53,13 @@
 			</geometry>
 			<material name="aluminum"/>
 		</visual>
-		<collision>
+		<!-- <collision> -->
 			<!--origin xyz="0.0 0.0 ${r430_cam_height/2}" rpy="0 0 0"/-->
-			<origin xyz="0 ${-d435_cam_depth_py} 0" rpy="0 0 0"/>
-			<geometry>
-				<box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/>
-			</geometry>
-		</collision>
+			<!-- <origin xyz="0 ${-d435_cam_depth_py} 0" rpy="0 0 0"/> -->
+			<!-- <geometry> -->
+				<!-- <box size="${d435_cam_depth} ${d435_cam_width} ${d435_cam_height}"/> -->
+			<!-- </geometry> -->
+		<!-- </collision> -->
 		<!-- The following are not reliable values, and should not be used for modeling -->
 		<inertial>
 			<mass value="0.07" />
