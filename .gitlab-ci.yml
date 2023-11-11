@@ -3,18 +3,19 @@
 # ==============================================================================
 image: server-harbor:80/dls2/dls2-dev:22.04
 
+# ==============================================================================
+# Stages
+# ==============================================================================
 stages:
-   - preamble
-   - deploy
-
-before_script:
-    - source /root/dls_gitlab_ci/gitlab-script.sh
+  - build
+  - packdeploy 
 
 # ------------------------------------------------------------------------------
-# Preamble Stage
+# Build Stage
 # ------------------------------------------------------------------------------
-preamble:
-  stage: preamble
+# Print versions of installed programmes on the docker image.
+display:versions:
+  stage: build
   tags:
     - dls2
   script:
@@ -22,20 +23,38 @@ preamble:
     - gcc --version
     - g++ --version
 
-# ------------------------------------------------------------------------------
-# Deploy Stage
-# ------------------------------------------------------------------------------
-deploy:
-  stage: deploy
+# Build the project
+build:
+  stage: build
   tags:
     - dls2
   script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.advr.iit.it >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
+    - git clone git@gitlab.advr.iit.it:dls-lab/dls_gitlab_ci.git -b master
     - mkdir build
     - cd build
     - cmake ..
+    - make -j$(nproc)
+  artifacts:
+    paths:
+      - dls_gitlab_ci/*
+      - build/*
+    expire_in: 3 hrs
+
+# ------------------------------------------------------------------------------
+# Pack and Deploy Stage
+# ------------------------------------------------------------------------------
+packdeploy:
+  stage: packdeploy
+  tags:
+    - dls2
+  script:
+    - cd build
     - make package
-    - echo $CI_JOB_ID > CI_JOB_ID
-    - source /root/dls_gitlab_ci/make-json.bash token=$DLSUSER_TOKEN project=$CI_PROJECT_ID branch=$CI_COMMIT_BRANCH job=$CI_JOB_ID tag=latest release=$(lsb_release -sc) > out.json
+    - source ../dls_gitlab_ci/make-json.bash token=$DLSUSER_TOKEN project=$CI_PROJECT_ID branch=$CI_COMMIT_BRANCH job=$CI_JOB_ID tag=latest release=$(lsb_release -sc) > out.json
     - 'curl -X post -H "Content-Type: application/json" -d @out.json http://server-ubuntu18:9000/hooks/deploy-apt'
   artifacts:
     paths:
@@ -43,4 +62,3 @@ deploy:
     expire_in: 1 week
   only:
     - master
-    - dls2
